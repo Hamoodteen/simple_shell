@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	pid_t child;
 	int i;
 	int a;
+	int ato;
 	int status;
 
 	for (a = 0; a < 50; a++)
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 	(void)argv;
 	while (1)
 	{
-		len = status = i = 0;
+		len = status = i = ato = 0;
 		s = NULL;
 		_puts("$: ");
 		if (getline(&s, &len, stdin) != -1)
@@ -38,8 +39,9 @@ int main(int argc, char *argv[])
 			args[i] = NULL;
 			if (strcmp(s, "exit") == 0)
 			{
+				ato = atoi(args[1]);
 				free(s);
-				exit(EXIT_SUCCESS);
+				exit(ato);
 			}
 			child = fork();
 			if (child == -1)
