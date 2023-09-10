@@ -47,14 +47,14 @@ int main(int argc, char *argv[])
 			child = fork();
 			if (child == -1)
             {
-                perror("fork");
+                perror("fork error");
                 exit(EXIT_FAILURE);
             }
             if (child == 0)
             {
                 if (execve(args[0], args, NULL) == -1)
                 {
-                    perror("execve");
+                    perror("execute error");
                     exit(EXIT_FAILURE);
                 }
 				exit(EXIT_SUCCESS);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			perror("Error");
+			perror("error");
 			exit(EXIT_FAILURE);
 		}
 	free(s);
