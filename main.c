@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
 			args[i] = NULL;
 			if (strcmp(s, "exit") == 0)
 			{
-				ato = atoi(args[1]);
+				if (args[1] != NULL)
+					ato = atoi(args[1]);
 				free(s);
 				exit(ato);
 			}
