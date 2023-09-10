@@ -11,12 +11,15 @@ int main(int argc, char **argv)
 	size_t len;
 	size_t lens;
 
+	(void)argc;
+	if (execve(argv[1], argv, NULL) == -1)
+	{
+		perror("Error:");
+	}
 	while (1)
 	{
 		len = lens = 0;
 		s = NULL;
-		(void)argc;
-		(void)argv;
 		_puts("$: ");
 		if (getline(&s, &len, stdin) != -1)
 		{
@@ -29,7 +32,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			_puts("Error !\n");
+			perror("Error !");
 			exit(EXIT_FAILURE);
 		}
 	}
