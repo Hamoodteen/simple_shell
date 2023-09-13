@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 				perror("fork error");
 				exit(EXIT_FAILURE);
 			}
-			if (child == 0)
+			else if (child == 0)
 			{
 				if (strcmp(s, "env") == 0)
 				{
