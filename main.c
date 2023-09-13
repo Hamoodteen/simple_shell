@@ -19,10 +19,9 @@ int main(int argc, char *argv[])
 	int ato;
 	int status;
 	int e;
-	extern char **environ;
 
 	for (a = 0; a < 50; a++)
-    	args[a] = NULL;
+		args[a] = NULL;
 	(void)argc;
 	(void)argv;
 	while (1)
@@ -33,6 +32,11 @@ int main(int argc, char *argv[])
 		if (getline(&s, &len, stdin) != -1)
 		{
 			s[strcspn(s, "\n")] = '\0';
+			if (s[0] == '\0')
+			{
+				free(s);
+				continue;
+			}
 			tok = strtok(s, " ");
 			while (tok != NULL)
 			{
@@ -41,13 +45,6 @@ int main(int argc, char *argv[])
 				i++;
 			}
 			args[i] = NULL;
-			if (strcmp(s, "exit") == 0)
-			{
-				if (args[1] != NULL)
-					ato = atoi(args[1]);
-				free(s);
-				exit(ato);
-			}
 			memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
 			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
 			{
@@ -55,30 +52,48 @@ int main(int argc, char *argv[])
 				args[0] = pathtemp;
 			}
 			child = fork();
+			if (strcmp(s, "exit") == 0)
+			{
+				if (args[1] != NULL)
+					ato = atoi(args[1]);
+				free(s);
+				exit(ato);
+			}
 			if (child == -1)
-            {
-                perror("fork error");
-                exit(EXIT_FAILURE);
-            }
-            if (child == 0)
-            {
+			{
+				perror("fork error");
+				exit(EXIT_FAILURE);
+			}
+			if (child == 0)
+			{
 				if (strcmp(s, "env") == 0)
 				{
 					for (e = 0; environ[e] != NULL; e++)
 					{
-        				_puts(environ[e]);
+						_puts(environ[e]);
 						_putchar('\n');
-    				}
+					}
 				}
-				if (execve(args[0], args, NULL) == -1)
-                {
-                    perror("execute error");
-                    exit(EXIT_FAILURE);
-                }
+				else if (strcmp(s, "$$") == 0)
+				{
+					child = getpid();
+					print_number(child);
+					_putchar('\n');
+				}
+				else if (strcmp(s, "$?") == 0)
+				{
+					print_number(WIFEXITED(status));
+					_putchar('\n');
+				}
+				else if (execve(args[0], args, NULL) == -1)
+				{
+					perror("execute error");
+					exit(EXIT_FAILURE);
+				}
 				exit(EXIT_SUCCESS);
-            }
-            else
-                waitpid(child, &status, 0);
+				}
+			else
+				waitpid(child, &status, 0);
 		}
 		else
 		{

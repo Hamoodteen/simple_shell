@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern char **environ;
 int _putchar(char c);
 int _puts(char *c);
 int printf_string(va_list val);
