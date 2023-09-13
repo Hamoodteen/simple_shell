@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 				}
 				else if (strcmp(s, "$?") == 0)
 				{
-					print_number(WIFEXITED(status));
+					print_number(WEXITSTATUS(status));
 					_putchar('\n');
 				}
 				else if (execve(args[0], args, NULL) == -1)
