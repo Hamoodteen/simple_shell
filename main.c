@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 	int a;
 	int ato;
 	int status;
+	int e;
+	extern char **environ;
 
 	for (a = 0; a < 50; a++)
     	args[a] = NULL;
@@ -45,6 +47,14 @@ int main(int argc, char *argv[])
 					ato = atoi(args[1]);
 				free(s);
 				exit(ato);
+			}
+			else if (strcmp(s, "env") == 0)
+			{
+				for (e = 0; environ[e] != NULL; e++)
+				{
+        			_puts(environ[e]);
+					_putchar('\n');
+    			}
 			}
 			memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
 			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
