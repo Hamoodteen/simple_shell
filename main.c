@@ -48,14 +48,6 @@ int main(int argc, char *argv[])
 				free(s);
 				exit(ato);
 			}
-			else if (strcmp(s, "env") == 0)
-			{
-				for (e = 0; environ[e] != NULL; e++)
-				{
-        			_puts(environ[e]);
-					_putchar('\n');
-    			}
-			}
 			memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
 			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
 			{
@@ -70,6 +62,14 @@ int main(int argc, char *argv[])
             }
             if (child == 0)
             {
+				if (strcmp(s, "env") == 0)
+				{
+					for (e = 0; environ[e] != NULL; e++)
+					{
+        				_puts(environ[e]);
+						_putchar('\n');
+    				}
+				}
 				if (execve(args[0], args, NULL) == -1)
                 {
                     perror("execute error");
