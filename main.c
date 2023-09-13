@@ -8,8 +8,10 @@
 int main(int argc, char *argv[])
 {
 	char *s;
-	char *tok;
+	char PATH[50] = "/bin/";
+	char pathtemp[50];
 	char *args[50];
+	char *tok;
 	size_t len;
 	pid_t child;
 	int i;
@@ -44,6 +46,12 @@ int main(int argc, char *argv[])
 				free(s);
 				exit(ato);
 			}
+			memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
+			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
+			{
+				strcat(pathtemp, args[0]);
+				args[0] = pathtemp;
+			}
 			child = fork();
 			if (child == -1)
             {
@@ -52,7 +60,7 @@ int main(int argc, char *argv[])
             }
             if (child == 0)
             {
-                if (execve(args[0], args, NULL) == -1)
+				if (execve(args[0], args, NULL) == -1)
                 {
                     perror("execute error");
                     exit(EXIT_FAILURE);
