@@ -36,7 +36,7 @@ char *get_location(char *command)
 				path_token = strtok(NULL, ":");
 			}
 		}
-		free(path_copy);    
+		free(path_copy); 
 		return (NULL);
 	}
 	return (NULL);
