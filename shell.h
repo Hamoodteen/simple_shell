@@ -23,5 +23,6 @@ int _strlen(const char *s);
 int _atoi(char *s);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
+int	_strncmp(char *s1, char *s2, unsigned int n);
 char *_memcpy(char *dest, char *src, unsigned int n);
 #endif

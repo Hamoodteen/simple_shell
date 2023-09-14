@@ -1,23 +1,6 @@
 #include "shell.h"
 
 /**
- * _strlen - do something
- * @s: int or char
- * Return: some thing
- */
-int _strlen(const char *s)
-{
-	int len = 0;
-	int i;
-
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		len++;
-	}
-	return (len);
-}
-
-/**
  * _atoi - f
  * @s: str
  * Return: int
@@ -110,20 +93,24 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * *_memcpy - f
- * @dest: dest
- * @src: mem
- * @n: num
- * Return: pointer
- */
-char *_memcpy(char *dest, char *src, unsigned int n)
+ * _strncmp - f
+ * @s1: char
+ * @s2: char
+ * @n: int
+ * Return: int
+*/
+int	_strncmp(char *s1, char *s2, unsigned int n)
 {
 	unsigned int i;
 
-	for (i = 0; i < n; i++)
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && i < n)
 	{
-		dest[i] = src[i];
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		++i;
 	}
-
-	return (dest);
+	if (i != n)
+		return (s1[i] - s2[i]);
+	return (0);
 }

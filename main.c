@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * main - func
  * @argc: int
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
 			}
 			args[i] = NULL;
 			_memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
-			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
+			if (_strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
 			{
 				_strcat(pathtemp, args[0]);
 				args[0] = pathtemp;
