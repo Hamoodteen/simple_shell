@@ -60,6 +60,7 @@ int _atoi(char *s)
 
 	return (n);
 }
+
 /**
  * _strcat - f
  * @dest: str
@@ -87,6 +88,7 @@ char *_strcat(char *dest, char *src)
 
 	return (dest);
 }
+
 /**
  * _strcmp - f
  * @s1: first
@@ -106,6 +108,7 @@ int _strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
+
 /**
  * *_memcpy - f
  * @dest: dest
