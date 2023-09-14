@@ -17,7 +17,6 @@
 extern char **environ;
 int _putchar(char c);
 int _puts(char *c);
-int printf_string(va_list val);
 int print_number(long int n);
 int _strlen(const char *s);
 int _atoi(char *s);
