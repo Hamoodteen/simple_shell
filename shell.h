@@ -20,4 +20,8 @@ int _puts(char *c);
 int printf_string(va_list val);
 int print_number(long int n);
 int _strlen(const char *s);
+int _atoi(char *s);
+char *_strcat(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
+char *_memcpy(char *dest, char *src, unsigned int n);
 #endif

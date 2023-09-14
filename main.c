@@ -45,17 +45,17 @@ int main(int argc, char *argv[])
 				i++;
 			}
 			args[i] = NULL;
-			memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
+			_memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
 			if (strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
 			{
-				strcat(pathtemp, args[0]);
+				_strcat(pathtemp, args[0]);
 				args[0] = pathtemp;
 			}
 			child = fork();
-			if (strcmp(s, "exit") == 0)
+			if (_strcmp(s, "exit") == 0)
 			{
 				if (args[1] != NULL)
-					ato = atoi(args[1]);
+					ato = _atoi(args[1]);
 				free(s);
 				exit(ato);
 			}
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 			}
 			else if (child == 0)
 			{
-				if (strcmp(s, "env") == 0)
+				if (_strcmp(s, "env") == 0)
 				{
 					for (e = 0; environ[e] != NULL; e++)
 					{
@@ -74,13 +74,13 @@ int main(int argc, char *argv[])
 						_putchar('\n');
 					}
 				}
-				else if (strcmp(s, "$$") == 0)
+				else if (_strcmp(s, "$$") == 0)
 				{
 					child = getpid();
 					print_number(child);
 					_putchar('\n');
 				}
-				else if (strcmp(s, "$?") == 0)
+				else if (_strcmp(s, "$?") == 0)
 				{
 					print_number(WEXITSTATUS(status));
 					_putchar('\n');
