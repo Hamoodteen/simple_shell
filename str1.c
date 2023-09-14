@@ -114,3 +114,27 @@ int	_strncmp(char *s1, char *s2, unsigned int n)
 		return (s1[i] - s2[i]);
 	return (0);
 }
+
+/**
+ * _strcspn - f
+ * @s1r: char
+ * @s2r: char
+ * Return: int
+*/
+size_t _strcspn(const char *s1r, const char *s2r)
+{
+	const char *s1 = s1r;
+	const char *s2;
+
+	while (*s1)
+	{
+		s2 = s2r;
+		while (*s2)
+		{
+			if (*s1 == *s2++)
+				return (s1 - s1r);
+		}
+		s1++;
+	}
+	return (s1 - s1r);
+}

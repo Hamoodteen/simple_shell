@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 		_puts("$: ");
 		if (getline(&s, &len, stdin) != -1)
 		{
-			s[strcspn(s, "\n")] = '\0';
+			s[_strcspn(s, "\n")] = '\0';
 			if (s[0] == '\0')
 			{
 				free(s);
