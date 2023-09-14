@@ -5,5 +5,5 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-void execmd(char **argv);
+void execution(char **argv);
 char *get_location(char *command);

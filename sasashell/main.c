@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
             token = strtok(NULL, delim);
         }
         argv[i] = NULL;
-		execmd(argv);
+		execution(argv);
 	}
 	free(lineptr);
 	free(lineptr_copy);
