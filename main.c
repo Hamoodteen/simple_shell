@@ -9,8 +9,6 @@
 int main(int argc, char *argv[])
 {
 	char *s;
-	char PATH[50] = "/bin/";
-	char pathtemp[50];
 	char *args[50];
 	char *tok;
 	size_t len;
@@ -46,12 +44,6 @@ int main(int argc, char *argv[])
 				i++;
 			}
 			args[i] = NULL;
-			_memcpy(pathtemp, PATH, (_strlen(PATH) + 1));
-			if (_strncmp(args[0], pathtemp, (_strlen(pathtemp))) != 0)
-			{
-				_strcat(pathtemp, args[0]);
-				args[0] = pathtemp;
-			}
 			child = fork();
 			if (_strcmp(s, "exit") == 0)
 			{
@@ -67,6 +59,7 @@ int main(int argc, char *argv[])
 			}
 			else if (child == 0)
 			{
+				args[0] = get_location(args[0]);
 				if (_strcmp(s, "env") == 0)
 				{
 					for (e = 0; environ[e] != NULL; e++)
@@ -86,13 +79,12 @@ int main(int argc, char *argv[])
 					print_number(WEXITSTATUS(status));
 					_putchar('\n');
 				}
-				else if (execve(args[0], args, NULL) == -1)
+				else if (execve(args[0], args, environ) == -1)
 				{
 					perror("execute error");
 					exit(EXIT_FAILURE);
 				}
-				exit(EXIT_SUCCESS);
-				}
+			}
 			else
 				waitpid(child, &status, 0);
 		}
