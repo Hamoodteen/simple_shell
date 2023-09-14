@@ -1,5 +1,5 @@
 #include "shell.h"
-/***/
+
 void initarg(char *args[])
 {
 	int i;
