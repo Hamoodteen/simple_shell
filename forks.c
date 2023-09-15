@@ -52,7 +52,7 @@ int myexitenv(char *s, char *args[], char *env[])
 		}
 		free(s);
 		exit(ato); }
-	else if (_strcmp(s, "env") == 0)
+	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		if (args[1] == NULL)
 		{
