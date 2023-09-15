@@ -49,7 +49,7 @@ int _strcmp(char *s1, char *s2)
  * @n: int
  * Return: int
 */
-int	_strncmp(char *s1, char *s2, unsigned int n)
+int _strncmp(char *s1, char *s2, unsigned int n)
 {
 	unsigned int i = 0;
 
