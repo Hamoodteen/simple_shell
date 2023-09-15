@@ -23,10 +23,11 @@ void tok(char *s, char *args[])
 }
 
 /**
- * myexit - exit command handle
+ * myexitenv - exit command handle
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
- * Return: 1 if no exit, -1 to many arguments or no return on success exit
+ * Return: 1 if no exit or on print env, -1 to many arguments,
+ * or no return(exit) on success exit
 */
 int myexitenv(char *s, char *args[])
 {

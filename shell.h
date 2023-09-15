@@ -15,6 +15,7 @@
 #include <errno.h>
 
 extern char **environ;
+
 int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
@@ -37,4 +38,5 @@ char *_strcpy(char *dest, char *src);
 void tok(char *s, char *args[]);
 int myexitenv(char *s, char *args[]);
 void fork_process(char *s, char *args[]);
+
 #endif
