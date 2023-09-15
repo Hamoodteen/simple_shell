@@ -57,7 +57,7 @@ void fork_process(char *s, char *args[])
 	pid_t child;
 	int status, e;
 
-	args[0] = get_location(args[0]);
+	args[0] = _which(args[0]);
 	child = fork();
 	if (child == -1)
 	{

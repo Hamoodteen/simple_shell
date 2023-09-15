@@ -25,6 +25,6 @@ int _strcmp(char *s1, char *s2);
 int	_strncmp(char *s1, char *s2, unsigned int n);
 size_t _strcspn(const char *s1r, const char *s2r);
 char *_memcpy(char *dest, char *src, unsigned int n);
-char *get_location(char *command);
+char *_which(char *command);
 
 #endif
