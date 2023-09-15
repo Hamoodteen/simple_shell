@@ -47,11 +47,8 @@ char *_strtok(char *str, const char *del)
 	static char *nextToken;
 	char *tokenStart;
 
-	nextToken = NULL;
 	if (str != NULL)
 		nextToken = str;
-	else if (nextToken == NULL)
-		return (NULL);
 	while (*nextToken != '\0' && _strchr(del, *nextToken) != NULL)
 		nextToken++;
 	if (*nextToken == '\0')

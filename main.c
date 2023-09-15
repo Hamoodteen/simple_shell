@@ -13,11 +13,11 @@ void tok(char *s, char *args[])
 	for (a = 0; a < 50; a++)
 		args[a] = NULL;
 
-	tok = strtok(s, " ");
+	tok = _strtok(s, " ");
 	while (tok != NULL)
 	{
 		args[i] = tok;
-		tok = strtok(NULL, " ");
+		tok = _strtok(NULL, " ");
 		i++;
 	}
 	args[i] = NULL;
