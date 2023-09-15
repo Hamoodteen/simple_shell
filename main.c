@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * tokAndExit - tokanization for the args
+ * tok - tokanization for the args
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
 */
-void tokAndExit(char *s, char *args[])
+void tok(char *s, char *args[])
 {
-	int a, i = 0, ato = 0;
+	int a, i = 0;
 	char *tok;
 
 	for (a = 0; a < 50; a++)
@@ -21,12 +21,30 @@ void tokAndExit(char *s, char *args[])
 		i++;
 	}
 	args[i] = NULL;
+}
+
+/**
+ * myexit - exit command handle
+ * @s: the user input
+ * @args: like {'/bin/ls', '-la'}
+ * Return: 1 if no exit, -1 to many arguments or no return on success exit
+*/
+int myexit(char *s, char *args[])
+{
+	int ato = 0;
+
 	if (_strcmp(s, "exit") == 0)
 	{
+		if (args[2] != NULL)
+		{
+			write(STDERR_FILENO, "-bash: exit: too many arguments\n", 32);
+			return(-1);
+		}
 		if (args[1] != NULL)
 			ato = _atoi(args[1]);
 		free(s);
 		exit(ato); }
+	return (1);
 }
 
 /**
@@ -103,8 +121,9 @@ int main(int argc, char *argv[])
 			{
 				free(s);
 				continue; }
-			tokAndExit(s, args);
-			fork_process(s, args); }
+			tok(s, args);
+			if (myexit(s, args) != -1)
+				fork_process(s, args); }
 		else
 		{
 			perror(s);
