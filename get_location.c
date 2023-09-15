@@ -11,6 +11,10 @@ char *_which(char *command)
 	int command_length, directory_length;
 	struct stat buffer;
 
+	if (_strcmp(command, "$$") == 0)
+		return ("$$");
+	else if (_strcmp(command, "$?") == 0)
+		return ("$?");
 	path = getenv("PATH");
 	if (path)
 	{
