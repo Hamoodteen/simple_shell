@@ -41,7 +41,13 @@ int myexitenv(char *s, char *args[])
 			return (-1);
 		}
 		if (args[1] != NULL)
+		{
 			ato = _atoi(args[1]);
+			if ((*args[1] < '0') || (*args[1] > '9'))
+			{
+				free(s);
+				exit(2); }
+		}
 		free(s);
 		exit(ato); }
 	else if (_strcmp(s, "env") == 0)
