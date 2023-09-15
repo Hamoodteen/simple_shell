@@ -71,6 +71,7 @@ void fork_process(char *s, char *args[])
 		else
 			waitpid(child, &status, 0);
 }
+
 /**
  * main - func
  * @argc: int
