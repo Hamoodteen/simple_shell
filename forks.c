@@ -68,6 +68,11 @@ void fork_process(char *s, char *args[])
 	int status;
 
 	args[0] = _which(args[0]);
+	if (args[0] == NULL)
+	{
+		perror(s);
+		return;
+	}
 	child = fork();
 	if (child == -1)
 	{
