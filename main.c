@@ -12,7 +12,6 @@ void tok(char *s, char *args[])
 
 	for (a = 0; a < 50; a++)
 		args[a] = NULL;
-
 	tok = _strtok(s, " ");
 	while (tok != NULL)
 	{

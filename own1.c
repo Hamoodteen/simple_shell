@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * _strlen - do something
  * @s: int or char
@@ -34,6 +35,29 @@ char *_strchr(const char *s, int c)
 		s++;
 	}
 	return (result);
+}
+
+/**
+ * _strdup - f
+ * @str: string
+ * Return: pointer
+ */
+char *_strdup(char *str)
+{
+	char *copy;
+	int i, len = 0;
+
+	if (str == NULL)
+		return (NULL);
+	while (str[len] != '\0')
+		len++;
+	copy = (char *)malloc((sizeof(char) * len) + 1);
+	if (copy == NULL)
+		return (NULL);
+	for (i = 0; i < len; i++)
+		copy[i] = str[i];
+	copy[len] = '\0';
+	return (copy);
 }
 
 /**
@@ -102,44 +126,4 @@ int _atoi(char *s)
 	if (f == 0)
 		return (0);
 	return (n);
-}
-
-/**
- * *_realloc - f
- * @ptr: pointer
- * @old_size: int
- * @new_size: int
- * Return: pointer
- */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	char *ptr1;
-	char *old_ptr;
-	unsigned int i;
-
-	if (new_size == old_size)
-		return (ptr);
-	if (new_size == 0 && ptr)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (!ptr)
-		return (malloc(new_size));
-	ptr1 = malloc(new_size);
-	if (!ptr1)
-		return (NULL);
-	old_ptr = ptr;
-	if (new_size < old_size)
-	{
-		for (i = 0; i < new_size; i++)
-			ptr1[i] = old_ptr[i];
-	}
-	if (new_size > old_size)
-	{
-		for (i = 0; i < old_size; i++)
-			ptr1[i] = old_ptr[i];
-	}
-	free(ptr);
-	return (ptr1);
 }
