@@ -57,7 +57,6 @@ int _fgetc(FILE *stream)
 	int nread;
 
 	nread = read(fileno(stream), &c, 1);
-
 	if (nread == 0)
 		return (EOF);
 	return (c);
