@@ -38,7 +38,7 @@ int myexit(char *s, char *args[])
 		if (args[2] != NULL)
 		{
 			write(STDERR_FILENO, "-bash: exit: too many arguments\n", 32);
-			return(-1);
+			return (-1);
 		}
 		if (args[1] != NULL)
 			ato = _atoi(args[1]);
