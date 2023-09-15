@@ -66,14 +66,15 @@ void fork_process(char *s, char *args[])
 	{
 		if (_strcmp(s, "env") == 0)
 		{
-			for (e = 0; environ[e] != NULL; e++)
+			if (args[1] == NULL)
 			{
-				if (args[1] != NULL)
+				for (e = 0; environ[e] != NULL; e++)
 				{
-					write(STDERR_FILENO, "-bash: env: too many arguments\n", 31);
-					return; }
-				_puts(environ[e]);
-				_putchar('\n'); }
+					_puts(environ[e]);
+					_putchar('\n'); }
+			}
+			else
+				execve(args[0], args, environ);
 		}
 		else if (_strcmp(s, "$$") == 0)
 		{
