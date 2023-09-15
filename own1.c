@@ -50,10 +50,12 @@ char *_strtok(char *str, const char *del)
 	nextToken = NULL;
 	if (str != NULL)
 		nextToken = str;
-	if (nextToken == NULL || *nextToken == '\0')
+	else if (nextToken == NULL)
 		return (NULL);
 	while (*nextToken != '\0' && _strchr(del, *nextToken) != NULL)
 		nextToken++;
+	if (*nextToken == '\0')
+		return (NULL);
 	tokenStart = nextToken;
 	while (*nextToken != '\0' && _strchr(del, *nextToken) == NULL)
 		nextToken++;
