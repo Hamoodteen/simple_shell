@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * tok - tokanization for the args
+ * tokAndExit - tokanization for the args
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
 */
-void tok(char *s, char *args[])
+void tokAndExit(char *s, char *args[])
 {
-	int a, i = 0;
+	int a, i = 0, ato = 0;
 	char *tok;
 
 	for (a = 0; a < 50; a++)
@@ -21,6 +21,12 @@ void tok(char *s, char *args[])
 		i++;
 	}
 	args[i] = NULL;
+	if (_strcmp(s, "exit") == 0)
+	{
+		if (args[1] != NULL)
+			ato = _atoi(args[1]);
+		free(s);
+		exit(ato); }
 }
 
 /**
@@ -31,45 +37,44 @@ void tok(char *s, char *args[])
 void fork_process(char *s, char *args[])
 {
 	pid_t child;
-	int status, e, ato = 0;
+	int status, e;
 
+	args[0] = get_location(args[0]);
+	if ((args[0]) == NULL)
+	{
+		perror(s);
+		return;
+	}
 	child = fork();
-		if (_strcmp(s, "exit") == 0)
+	if (child == -1)
+	{
+		perror(s);
+		exit(EXIT_FAILURE); }
+	else if (child == 0)
+	{
+		if (_strcmp(s, "env") == 0)
 		{
-			if (args[1] != NULL)
-				ato = _atoi(args[1]);
-			free(s);
-			exit(ato); }
-		if (child == -1)
-		{
-			perror("fork error");
-			exit(EXIT_FAILURE); }
-		else if (child == 0)
-		{
-			args[0] = get_location(args[0]);
-			if (_strcmp(s, "env") == 0)
+			for (e = 0; environ[e] != NULL; e++)
 			{
-				for (e = 0; environ[e] != NULL; e++)
-				{
-					_puts(environ[e]);
-					_putchar('\n'); }
-			}
-			else if (_strcmp(s, "$$") == 0)
-			{
-				child = getpid();
-				print_number(child);
+				_puts(environ[e]);
 				_putchar('\n'); }
-			else if (_strcmp(s, "$?") == 0)
-			{
-				print_number(WEXITSTATUS(status));
-				_putchar('\n'); }
-			else if (execve(args[0], args, environ) == -1)
-			{
-				perror("execute error");
-				exit(EXIT_FAILURE); }
 		}
-		else
-			waitpid(child, &status, 0);
+		else if (_strcmp(s, "$$") == 0)
+		{
+			child = getpid();
+			print_number(child);
+			_putchar('\n'); }
+		else if (_strcmp(s, "$?") == 0)
+		{
+			print_number(WEXITSTATUS(status));
+			_putchar('\n'); }
+		else if (execve(args[0], args, environ) == -1)
+		{
+			perror(args[0]);
+			exit(EXIT_FAILURE); }
+	}
+	else
+		waitpid(child, &status, 0);
 }
 
 /**
@@ -98,11 +103,11 @@ int main(int argc, char *argv[])
 			{
 				free(s);
 				continue; }
-			tok(s, args);
+			tokAndExit(s, args);
 			fork_process(s, args); }
 		else
 		{
-			perror("^D");
+			perror(s);
 			exit(EXIT_FAILURE); }
 	free(s); }
 	return (0);
