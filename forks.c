@@ -26,10 +26,11 @@ void tok(char *s, char *args[])
  * myexitenv - exit command handle
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
+ * @env: environment variables
  * Return: 1 if no exit or on print env, -1 to many arguments,
  * or no return(exit) on success exit
 */
-int myexitenv(char *s, char *args[])
+int myexitenv(char *s, char *args[], char *env[])
 {
 	int ato, e;
 
@@ -55,9 +56,9 @@ int myexitenv(char *s, char *args[])
 	{
 		if (args[1] == NULL)
 		{
-			for (e = 0; environ[e] != NULL; e++)
+			for (e = 0; env[e] != NULL; e++)
 			{
-				_puts(environ[e]);
+				_puts(env[e]);
 				_putchar('\n'); }
 		}
 	}
@@ -68,8 +69,9 @@ int myexitenv(char *s, char *args[])
  * fork_process - fork (new process)
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
+ * @env: env
 */
-void fork_process(char *s, char *args[])
+void fork_process(char *s, char *args[], char *env[])
 {
 	pid_t child;
 	int status;
@@ -96,7 +98,7 @@ void fork_process(char *s, char *args[])
 		{
 			print_number(WEXITSTATUS(status));
 			_putchar('\n'); }
-		else if (execve(args[0], args, environ) == -1)
+		else if (execve(args[0], args, env) == -1)
 		{
 			perror(args[0]);
 			exit(EXIT_FAILURE); }

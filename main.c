@@ -4,9 +4,10 @@
  * main - func
  * @argc: int
  * @argv: args
+ * @env: env
  * Return: 0 or 1
 */
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *env[])
 {
 	char *args[50], *s;
 	size_t len;
@@ -27,8 +28,8 @@ int main(int argc, char *argv[])
 				free(s);
 				continue; }
 			tok(s, args);
-			if (myexitenv(s, args) != -1)
-				fork_process(s, args); }
+			if (myexitenv(s, args, env) != -1)
+				fork_process(s, args, env); }
 		else
 		{
 			perror(s);
