@@ -58,11 +58,6 @@ void fork_process(char *s, char *args[])
 	int status, e;
 
 	args[0] = get_location(args[0]);
-	if ((args[0]) == NULL)
-	{
-		perror(s);
-		return;
-	}
 	child = fork();
 	if (child == -1)
 	{
