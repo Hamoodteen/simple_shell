@@ -1,50 +1,6 @@
 #include "shell.h"
 
 /**
- * _atoi - f
- * @s: str
- * Return: int
- */
-int _atoi(char *s)
-{
-	int i, d, n, len, f, digit;
-
-	i = 0;
-	d = 0;
-	n = 0;
-	len = 0;
-	f = 0;
-	digit = 0;
-
-	while (s[len] != '\0')
-		len++;
-
-	while (i < len && f == 0)
-	{
-		if (s[i] == '-')
-			++d;
-
-		if (s[i] >= '0' && s[i] <= '9')
-		{
-			digit = s[i] - '0';
-			if (d % 2)
-				digit = -digit;
-			n = n * 10 + digit;
-			f = 1;
-			if (s[i + 1] < '0' || s[i + 1] > '9')
-				break;
-			f = 0;
-		}
-		i++;
-	}
-
-	if (f == 0)
-		return (0);
-
-	return (n);
-}
-
-/**
  * _strcat - f
  * @dest: str
  * @src: str
@@ -52,23 +8,17 @@ int _atoi(char *s)
  */
 char *_strcat(char *dest, char *src)
 {
-	int i, j;
-
-	i = 0;
-	j = 0;
+	int i = 0, j = 0;
 
 	while (dest[i] != '\0')
 		i++;
-
 	while (src[j] != '\0')
 	{
 		dest[i] = src[j];
 		j++;
 		i++;
 	}
-
 	dest[i] = '\0';
-
 	return (dest);
 }
 
@@ -101,10 +51,9 @@ int _strcmp(char *s1, char *s2)
 */
 int	_strncmp(char *s1, char *s2, unsigned int n)
 {
-	unsigned int i;
+	unsigned int i = 0;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && i < n)
+	while ((s1[i] != '\0') && (s2[i] != '\0') && (i < n))
 	{
 		if (s1[i] != s2[i])
 			return (s1[i] - s2[i]);
@@ -113,6 +62,28 @@ int	_strncmp(char *s1, char *s2, unsigned int n)
 	if (i != n)
 		return (s1[i] - s2[i]);
 	return (0);
+}
+
+/**
+ * _strspn - f
+ * @s1: char
+ * @s2: char
+ * Return: int
+*/
+size_t _strspn(const char *s1, const char *s2)
+{
+	size_t count;
+
+	count = 0;
+	while (*s1)
+	{
+		if (_strchr(s2, *s1))
+			count++;
+		else
+			break;
+		s1++;
+	}
+	return (count);
 }
 
 /**

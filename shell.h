@@ -18,13 +18,17 @@ extern char **environ;
 int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
-int _strlen(const char *s);
-int _atoi(char *s);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 int	_strncmp(char *s1, char *s2, unsigned int n);
+size_t _strspn(const char *s1, const char *s2);
 size_t _strcspn(const char *s1r, const char *s2r);
-char *_memcpy(char *dest, char *src, unsigned int n);
+int _strlen(const char *s);
+char *_strchr(const char *s, int c);
+char *_strtok(char *str, const char *del);
+int _atoi(char *s);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_which(char *command);
-
 #endif

@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 		len = i = 0;
 		s = NULL;
 		_puts("$: ");
-		if (getline(&s, &len, stdin) != -1)
+		if (_getline(&s, &len, stdin) != -1)
 		{
 			s[_strcspn(s, "\n")] = '\0';
 			if (s[0] == '\0')

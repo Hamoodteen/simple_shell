@@ -1,23 +1,6 @@
 #include "shell.h"
 
 /**
- * _strlen - do something
- * @s: int or char
- * Return: some thing
- */
-int _strlen(const char *s)
-{
-	int len = 0;
-	int i;
-
-	for (i = 0; s[i] != '\0'; i++)
-	{
-		len++;
-	}
-	return (len);
-}
-
-/**
  * _putchar - prints a string
  * @c: pointer to string to print
  * Return: string
@@ -72,6 +55,56 @@ int print_number(long int n)
 }
 
 /**
+ * _getline - f
+ * @lineptr: char
+ * @n: int
+ * @stream: file
+ * Return: int
+*/
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
+{
+	char *newline, *line = NULL;
+	ssize_t bufsize = 128, nchars = 0;
+	int c;
+
+	if ((lineptr == NULL) || (n == NULL) || (stream == NULL))
+		return (-1);
+	if ((*lineptr == NULL) || (*n == 0))
+	{
+		line = (char *)malloc(bufsize);
+		if (line == NULL)
+			return (-1);
+		*n = bufsize; }
+	else
+	{
+		bufsize = *n;
+		line = *lineptr; }
+	while (1)
+	{
+		c = fgetc(stream);
+		if ((c == EOF) || (c == '\n'))
+		{
+			line[nchars] = '\0';
+			break; }
+		if (nchars >= (bufsize - 1))
+		{
+			bufsize *= 2;
+			newline = (char *)_realloc(line, 0, bufsize);
+			if (newline == NULL)
+			{
+				free(line);
+				return (-1); }
+			line = newline;
+		}
+		line[nchars++] = (char)c; }
+	*lineptr = line;
+	*n = bufsize;
+	if ((nchars == 0) && (c == EOF))
+		return (-1);
+	return (nchars);
+}
+
+/**
  * *_memcpy - f
  * @dest: dest
  * @src: mem
@@ -83,9 +116,6 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 	unsigned int i;
 
 	for (i = 0; i < n; i++)
-	{
 		dest[i] = src[i];
-	}
-
 	return (dest);
 }
