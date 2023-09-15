@@ -28,10 +28,11 @@ void tok(char *s, char *args[])
  * @args: like {'/bin/ls', '-la'}
  * Return: 1 if no exit, -1 to many arguments or no return on success exit
 */
-int myexit(char *s, char *args[])
+int myexitenv(char *s, char *args[])
 {
-	int ato = 0;
+	int ato, e;
 
+	ato = e = 0;
 	if (_strcmp(s, "exit") == 0)
 	{
 		if (args[2] != NULL)
@@ -43,6 +44,16 @@ int myexit(char *s, char *args[])
 			ato = _atoi(args[1]);
 		free(s);
 		exit(ato); }
+	else if (_strcmp(s, "env") == 0)
+	{
+		if (args[1] == NULL)
+		{
+			for (e = 0; environ[e] != NULL; e++)
+			{
+				_puts(environ[e]);
+				_putchar('\n'); }
+		}
+	}
 	return (1);
 }
 
@@ -54,7 +65,7 @@ int myexit(char *s, char *args[])
 void fork_process(char *s, char *args[])
 {
 	pid_t child;
-	int status, e;
+	int status;
 
 	args[0] = _which(args[0]);
 	child = fork();
@@ -64,19 +75,7 @@ void fork_process(char *s, char *args[])
 		exit(EXIT_FAILURE); }
 	else if (child == 0)
 	{
-		if (_strcmp(s, "env") == 0)
-		{
-			if (args[1] == NULL)
-			{
-				for (e = 0; environ[e] != NULL; e++)
-				{
-					_puts(environ[e]);
-					_putchar('\n'); }
-			}
-			else
-				execve(args[0], args, environ);
-		}
-		else if (_strcmp(s, "$$") == 0)
+		if (_strcmp(s, "$$") == 0)
 		{
 			child = getpid();
 			print_number(child);

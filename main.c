@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 				free(s);
 				continue; }
 			tok(s, args);
-			if (myexit(s, args) != -1)
+			if (myexitenv(s, args) != -1)
 				fork_process(s, args); }
 		else
 		{
