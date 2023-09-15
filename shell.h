@@ -31,4 +31,5 @@ char *_strtok(char *str, const char *del);
 int _atoi(char *s);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_which(char *command);
+int _fgetc(FILE *stream);
 #endif

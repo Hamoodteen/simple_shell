@@ -45,3 +45,20 @@ char *_which(char *command)
 	}
 	return (NULL);
 }
+
+/**
+ * _fgetc - f
+ * @stream: file
+ * Return: int
+*/
+int _fgetc(FILE *stream)
+{
+	char c;
+	int nread;
+
+	nread = read(fileno(stream), &c, 1);
+
+	if (nread == 0)
+		return (EOF);
+	return (c);
+}
