@@ -40,7 +40,7 @@ int main(int argc, char *argv[], char *env[])
 				fork_process(s, args, env, argv[0], cnt); }
 		else
 		{
-			perror(s);
+			_putchar('\n');
 			exit(EXIT_FAILURE); }
 	free(s); }
 	return (0); }
