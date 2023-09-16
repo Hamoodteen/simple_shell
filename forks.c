@@ -1,6 +1,5 @@
 #include "shell.h"
 
-int cnt = 1;
 /**
  * tok - tokanization for the args
  * @s: the user input
@@ -28,10 +27,11 @@ void tok(char *s, char *args[])
  * @args: like {'/bin/ls', '-la'}
  * @env: environment variables
  * @argv0: argv0
+ * @cnt: count
  * Return: 1 if no exit or on print env, -1 to many arguments,
  * or no return(exit) on success exit
 */
-int myexitenv(char *s, char *args[], char *env[], char *argv0)
+int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	int ato, e;
 
@@ -72,9 +72,10 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0)
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
  * @env: env
+ * @cnt: count
  * @argv0: argv0
 */
-void fork_process(char *s, char *args[], char *env[], char *argv0)
+void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	pid_t child;
 	int status;
