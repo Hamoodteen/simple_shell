@@ -27,31 +27,34 @@ void tok(char *s, char *args[])
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
  * @env: environment variables
+ * @argv0: argv0
  * Return: 1 if no exit or on print env, -1 to many arguments,
  * or no return(exit) on success exit
 */
-int myexitenv(char *s, char *args[], char *env[])
+int myexitenv(char *s, char *args[], char *env[], char *argv0)
 {
 	int ato, e;
 
 	ato = e = 0;
 	if (_strcmp(s, "exit") == 0)
 	{
-		if (args[2] != NULL)
-		{
-			write(STDERR_FILENO, "-hsh: exit: too many arguments\n", 31);
-			return (-1);
-		}
 		if (args[1] != NULL)
 		{
 			ato = _atoi(args[1]);
 			if ((*args[1] < '0') || (*args[1] > '9'))
 			{
-				free(s);
-				exit(2); }
+				_puts(argv0);
+				_puts(": ");
+				print_number(1);
+				write(STDERR_FILENO, ": exit: Illegal number: ", 25);
+				_puts(args[1]);
+				_putchar('\n');
+				return (-1); }
+			else if ((*args[1] > '0') || (*args[1] < '9'))
+				exit(ato);
 		}
-		free(s);
-		exit(ato); }
+		else
+			exit(EXIT_SUCCESS); }
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		if (args[1] == NULL)
@@ -70,15 +73,16 @@ int myexitenv(char *s, char *args[], char *env[])
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
  * @env: env
+ * @argv0: argv0
 */
-void fork_process(char *s, char *args[], char *env[])
+void fork_process(char *s, char *args[], char *env[], char *argv0)
 {
 	pid_t child;
 	int status;
 	char *command_path;
 
 	command_path = _which(args[0]);
-	if (args[0] == NULL)
+	if (command_path == NULL)
 	{
 		perror(s);
 		return;
@@ -101,6 +105,10 @@ void fork_process(char *s, char *args[], char *env[])
 			_putchar('\n'); }
 		else if (execve(command_path, args, env) == -1)
 		{
+			_puts(argv0);
+			_puts(": ");
+			print_number(1);
+			_puts(": ");
 			perror(args[0]);
 			exit(EXIT_FAILURE); }
 	}

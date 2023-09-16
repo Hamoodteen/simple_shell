@@ -14,7 +14,9 @@ int main(int argc, char *argv[], char *env[])
 	int i;
 
 	(void)argc;
-	(void)argv;
+	if (argv[1] != NULL)
+	{
+	}
 	while (1)
 	{
 		len = i = 0;
@@ -28,8 +30,8 @@ int main(int argc, char *argv[], char *env[])
 				free(s);
 				continue; }
 			tok(s, args);
-			if (myexitenv(s, args, env) != -1)
-				fork_process(s, args, env); }
+			if (myexitenv(s, args, env, argv[0]) != -1)
+				fork_process(s, args, env, argv[0]); }
 		else
 		{
 			perror(s);

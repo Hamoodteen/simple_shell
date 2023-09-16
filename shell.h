@@ -34,7 +34,7 @@ int _fgetc(FILE *stream);
 char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strcpy(char *dest, char *src);
 void tok(char *s, char *args[]);
-int myexitenv(char *s, char *args[], char *env[]);
-void fork_process(char *s, char *args[], char *env[]);
+int myexitenv(char *s, char *args[], char *env[], char *argv0);
+void fork_process(char *s, char *args[], char *env[], char *argv0);
 
 #endif
