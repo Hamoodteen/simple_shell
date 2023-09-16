@@ -1,5 +1,6 @@
 #include "shell.h"
 
+int cnt = 1;
 /**
  * tok - tokanization for the args
  * @s: the user input
@@ -44,7 +45,7 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0)
 			{
 				_puts(argv0);
 				_puts(": ");
-				print_number(1);
+				print_number(cnt);
 				write(STDERR_FILENO, ": exit: Illegal number: ", 25);
 				_puts(args[1]);
 				_putchar('\n');
@@ -84,7 +85,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0)
 	{
 		_puts(argv0);
 		_puts(": ");
-		print_number(1);
+		print_number(cnt);
 		_puts(": ");
 		_puts(args[0]);
 		write(STDERR_FILENO, ": not found\n", 13);

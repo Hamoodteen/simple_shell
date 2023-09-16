@@ -13,6 +13,7 @@ int main(int argc, char *argv[], char *env[])
 	size_t len;
 	int i;
 
+	cnt = 1;
 	(void)argc;
 	if (argv[1] != NULL)
 	{
@@ -36,7 +37,8 @@ int main(int argc, char *argv[], char *env[])
 				continue; }
 			tok(s, args);
 			if (myexitenv(s, args, env, argv[0]) != -1)
-				fork_process(s, args, env, argv[0]); }
+				fork_process(s, args, env, argv[0]);
+			cnt++; }
 		else
 		{
 			perror(s);

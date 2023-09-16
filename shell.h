@@ -14,6 +14,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern int cnt;
+
 int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
