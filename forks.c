@@ -112,7 +112,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		{
 			_puts(argv0);
 			_puts(": ");
-			print_number(1);
+			print_number(cnt);
 			_puts(": ");
 			perror(args[0]);
 			exit(EXIT_FAILURE); }
