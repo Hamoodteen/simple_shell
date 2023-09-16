@@ -75,8 +75,9 @@ void fork_process(char *s, char *args[], char *env[])
 {
 	pid_t child;
 	int status;
+	char *command_path;
 
-	args[0] = _which(args[0]);
+	command_path = _which(args[0]);
 	if (args[0] == NULL)
 	{
 		perror(s);
@@ -98,7 +99,7 @@ void fork_process(char *s, char *args[], char *env[])
 		{
 			print_number(WEXITSTATUS(status));
 			_putchar('\n'); }
-		else if (execve(args[0], args, env) == -1)
+		else if (execve(command_path, args, env) == -1)
 		{
 			perror(args[0]);
 			exit(EXIT_FAILURE); }
