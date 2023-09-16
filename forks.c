@@ -85,9 +85,9 @@ void fork_process(char *s, char *args[], char *env[], char *argv0)
 		_puts(argv0);
 		_puts(": ");
 		print_number(1);
+		_puts(": ");
 		_puts(args[0]);
-		write(STDERR_FILENO, ": not found", 12);
-		_putchar('\n');
+		write(STDERR_FILENO, ": not found\n", 13);
 		return; }
 	child = fork();
 	if (child == -1)

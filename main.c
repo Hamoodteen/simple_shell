@@ -16,6 +16,11 @@ int main(int argc, char *argv[], char *env[])
 	(void)argc;
 	if (argv[1] != NULL)
 	{
+		_puts(argv[0]);
+		_puts(": 0: cannot open ");
+		_puts(argv[1]);
+		_puts(": No such file\n");
+		return (1);
 	}
 	while (1)
 	{
