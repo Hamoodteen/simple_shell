@@ -37,5 +37,4 @@ int main(int argc, char *argv[], char *env[])
 			perror(s);
 			exit(EXIT_FAILURE); }
 	free(s); }
-	return (0);
-}
+	return (0); }

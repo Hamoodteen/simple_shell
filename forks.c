@@ -19,8 +19,7 @@ void tok(char *s, char *args[])
 		tok = _strtok(NULL, " ");
 		i++;
 	}
-	args[i] = NULL;
-}
+	args[i] = NULL; }
 
 /**
  * myexitenv - exit command handle
@@ -65,8 +64,7 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0)
 				_putchar('\n'); }
 		}
 	}
-	return (1);
-}
+	return (1); }
 
 /**
  * fork_process - fork (new process)
