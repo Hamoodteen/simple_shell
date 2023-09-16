@@ -39,7 +39,7 @@ int myexitenv(char *s, char *args[], char *env[])
 	{
 		if (args[2] != NULL)
 		{
-			write(STDERR_FILENO, "-bash: exit: too many arguments\n", 32);
+			write(STDERR_FILENO, "-hsh: exit: too many arguments\n", 31);
 			return (-1);
 		}
 		if (args[1] != NULL)
