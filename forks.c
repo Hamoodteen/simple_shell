@@ -19,7 +19,8 @@ void tok(char *s, char *args[])
 		tok = _strtok(NULL, " ");
 		i++;
 	}
-	args[i] = NULL; }
+	args[i] = NULL;
+}
 
 /**
  * myexitenv - exit command handle

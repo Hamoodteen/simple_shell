@@ -32,19 +32,15 @@ char *_which(char *command)
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_copy);
-				return (file_path);
-			}
+				return (file_path); }
 			else
 			{
 				free(file_path);
-				path_token = _strtok(NULL, ":");
-			}
+				path_token = _strtok(NULL, ":"); }
 		}
 		free(path_copy);
-		return (NULL);
-	}
-	return (NULL);
-}
+		return (NULL); }
+	return (NULL); }
 
 /**
  * _fgetc - f

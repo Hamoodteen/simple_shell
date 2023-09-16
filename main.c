@@ -20,8 +20,7 @@ int main(int argc, char *argv[], char *env[])
 		_puts(": 0: cannot open ");
 		_puts(argv[1]);
 		_puts(": No such file\n");
-		return (1);
-	}
+		return (1); }
 	while (1)
 	{
 		len = i = 0;

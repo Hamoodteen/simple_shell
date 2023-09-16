@@ -101,8 +101,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	*n = bufsize;
 	if ((nchars == 0) && (c == EOF))
 		return (-1);
-	return (nchars);
-}
+	return (nchars); }
 
 /**
  * *_realloc - f
