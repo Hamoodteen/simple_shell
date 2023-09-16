@@ -84,9 +84,13 @@ void fork_process(char *s, char *args[], char *env[], char *argv0)
 	command_path = _which(args[0]);
 	if (command_path == NULL)
 	{
-		perror(s);
-		return;
-	}
+		_puts(argv0);
+		_puts(": ");
+		print_number(1);
+		_puts(args[0]);
+		write(STDERR_FILENO, ": not found", 12);
+		_putchar('\n');
+		return; }
 	child = fork();
 	if (child == -1)
 	{
@@ -113,5 +117,4 @@ void fork_process(char *s, char *args[], char *env[], char *argv0)
 			exit(EXIT_FAILURE); }
 	}
 	else
-		waitpid(child, &status, 0);
-}
+		waitpid(child, &status, 0); }
