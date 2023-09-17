@@ -90,6 +90,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
+		free(command_path);
 		return; }
 	child = fork();
 	if (child == -1)
@@ -115,6 +116,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 			write(STDERR_FILENO, ": ", 2);
 			write(STDERR_FILENO, args[0], _strlen(args[0]));
 			perror(args[0]);
+			free(command_path);
 			exit(EXIT_FAILURE); }
 	}
 	else
