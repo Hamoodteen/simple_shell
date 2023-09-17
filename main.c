@@ -29,12 +29,12 @@ int main(int argc, char *argv[], char *env[])
 		if (_getline(&s, &len, stdin) != -1)
 		{
 			s[_strcspn(s, "\n")] = '\0';
+			cnt++;
 			if (s[0] == '\0')
 			{
 				free(s);
 				continue; }
 			tok(s, args);
-			cnt++;
 			if (myexitenv(s, args, env, argv[0], cnt) != -1)
 				fork_process(s, args, env, argv[0], cnt); }
 		else
