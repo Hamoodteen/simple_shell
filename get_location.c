@@ -32,7 +32,8 @@ char *_which(char *command)
 			if (stat(file_path, &buffer) == 0)
 			{
 				free(path_copy);
-				return (file_path); }
+				return (file_path);
+			}
 			else
 			{
 				free(file_path);
@@ -89,3 +90,35 @@ char *_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
+/**
+ * inttostring - f
+ * @num: int
+ * Return: int
+*/
+char *inttostring(int num)
+{
+	int maxDigits = 12;
+	int i;
+	char *str;
+
+	str = (char *)malloc(maxDigits * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	if (num == 0)
+	{
+		str[0] = '0';
+		str[1] = '\0';
+		return (str); }
+	else if (num < 0)
+	{
+		str[0] = '-';
+		num = -num; }
+	i = maxDigits - 1;
+	str[i] = '\0';
+	while (num > 0 && i > 0)
+	{
+		i--;
+		str[i] = '0' + (num % 10);
+		num /= 10; }
+	return (&str[i]); }

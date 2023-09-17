@@ -44,13 +44,16 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 			ato = _atoi(args[1]);
 			if ((*args[1] < '0') || (*args[1] > '9'))
 			{
-				_puts(argv0);
-				_puts(": ");
-				print_number(cnt);
-				write(STDERR_FILENO, ": exit: Illegal number: ", 25);
-				_puts(args[1]);
-				_putchar('\n');
-				return (-1); }
+				write(STDERR_FILENO, argv0, sizeof(argv0) - 3);
+				write(STDERR_FILENO, ": ", 2);
+				write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+				write(STDERR_FILENO, ": exit: Illegal number: ", 24);
+				if ((ato < 0))
+					write(STDERR_FILENO, args[1], sizeof(args[1]) - 5);
+				else
+					write(STDERR_FILENO, args[1], sizeof(args[1]) - 4);
+				write(STDERR_FILENO, "\n", 1);
+				exit(2); }
 			else if ((*args[1] > '0') || (*args[1] < '9'))
 				exit(ato);
 		}
@@ -80,17 +83,16 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	pid_t child;
 	int status;
-	char *command_path;
+	char *command_path = _which(args[0]);
 
-	command_path = _which(args[0]);
 	if (command_path == NULL)
 	{
-		_puts(argv0);
-		_puts(": ");
-		print_number(cnt);
-		_puts(": ");
-		_puts(args[0]);
-		write(STDERR_FILENO, ": not found\n", 13);
+		write(STDERR_FILENO, argv0, sizeof(argv0) - 3);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, args[0], sizeof(args[0]) - 4);
+		write(STDERR_FILENO, ": not found\n", 12);
 		return; }
 	child = fork();
 	if (child == -1)
@@ -110,10 +112,11 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 			_putchar('\n'); }
 		else if (execve(command_path, args, env) == -1)
 		{
-			_puts(argv0);
-			_puts(": ");
-			print_number(cnt);
-			_puts(": ");
+			write(STDERR_FILENO, argv0, sizeof(argv0) - 3);
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, args[0], sizeof(args[0]) - 4);
 			perror(args[0]);
 			exit(EXIT_FAILURE); }
 	}
