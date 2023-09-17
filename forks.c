@@ -66,6 +66,10 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 				_putchar('\n'); }
 		}
 	}
+	else if (_strcmp(s, "setenv") == 0)
+		setenv(args[1], args[2], 1);
+	else if (_strcmp(s, "unsetenv") == 0)
+		unsetenv(args[1]);
 	return (1); }
 
 /**
