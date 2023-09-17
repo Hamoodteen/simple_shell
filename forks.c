@@ -48,10 +48,7 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 				write(STDERR_FILENO, ": ", 2);
 				write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
 				write(STDERR_FILENO, ": exit: Illegal number: ", 24);
-				if ((ato < 0))
-					write(STDERR_FILENO, args[1], _strlen(args[1]));
-				else
-					write(STDERR_FILENO, args[1], _strlen(args[1]));
+				write(STDERR_FILENO, args[1], _strlen(args[1]));
 				write(STDERR_FILENO, "\n", 1);
 				exit(2); }
 			else if ((*args[1] > '0') || (*args[1] < '9'))
