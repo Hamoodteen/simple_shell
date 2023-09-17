@@ -120,6 +120,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
  * @argv: argv
  * @fd: file
  * @env: env
+ * Return: int
 */
 int filefd(char *argv[], int fd, char *env[])
 {
