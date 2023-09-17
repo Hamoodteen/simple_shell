@@ -115,8 +115,9 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
  * filefd - f
  * @argv: argv
  * @fd: file
+ * @env: env
 */
-int filefd(char *argv[], int fd)
+int filefd(char *argv[], int fd, char *env[])
 {
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -126,7 +127,7 @@ int filefd(char *argv[], int fd)
 	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
 	write(STDERR_FILENO, ": No such file\n", 15);
 	exit(2); }
-	if (execvp(argv[1], argv + 1) == -1)
+	if (execve(argv[1], argv, env) == -1)
 	{
 		perror("Error executing file");
 		return (2); }
