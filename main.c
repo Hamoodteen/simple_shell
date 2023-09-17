@@ -16,9 +16,9 @@ int main(int argc, char *argv[], char *env[])
 	(void)argc;
 	if (argv[1] != NULL)
 	{
-		write(STDERR_FILENO, argv[0], sizeof(argv[0]) - 2);
+		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 		write(STDERR_FILENO, ": 0: cannot open ", 17);
-		write(STDERR_FILENO, argv[1], sizeof(argv[1]) - 8);
+		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
 		write(STDERR_FILENO, ": No such file\n", 16);
 		return (1); }
 	while (1)
