@@ -25,7 +25,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		len = i = 0;
 		s = NULL;
-		_puts("$: ");
+		write(STDIN_FILENO, "$: ", 4);
 		if (_getline(&s, &len, stdin) != -1)
 		{
 			s[_strcspn(s, "\n")] = '\0';
