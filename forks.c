@@ -36,7 +36,8 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	int ato, e;
 
-	ato = e = 0;
+	ato = 0;
+	e = 0;
 	if (_strcmp(s, "exit") == 0)
 	{
 		if (args[1] != NULL)
