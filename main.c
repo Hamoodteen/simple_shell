@@ -38,8 +38,6 @@ int main(int argc, char *argv[], char *env[])
 			if (myexitenv(s, args, env, argv[0], cnt) != -1)
 				fork_process(s, args, env, argv[0], cnt); }
 		else
-		{
-			_putchar('\n');
-			exit(EXIT_FAILURE); }
+			exit(EXIT_SUCCESS);
 	free(s); }
 	return (0); }
