@@ -92,7 +92,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], sizeof(args[0]) - 4);
-		write(STDERR_FILENO, ": not found\n", 12);
+		perror(args[0]);
 		return; }
 	child = fork();
 	if (child == -1)
