@@ -12,15 +12,13 @@ int main(int argc, char *argv[], char *env[])
 	char *args[50], *s;
 	size_t len;
 	int i, whitespace, cnt = 0;
+	int a, fd = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
 	{
-		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-		write(STDERR_FILENO, ": 0: cannot open ", 17);
-		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
-		write(STDERR_FILENO, ": No such file\n", 15);
-		exit(2); }
+		a = filefd(argv, fd);
+		return (a); }
 	while (1)
 	{
 		len = i = 0;

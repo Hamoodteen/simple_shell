@@ -111,6 +111,31 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	}
 	else
 		waitpid(child, &status, 0); }
+/**
+ * filefd - f
+ * @argv: argv
+ * @fd: file
+*/
+int filefd(char *argv[], int fd)
+{
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+	write(STDERR_FILENO, ": 0: cannot open ", 17);
+	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
+	write(STDERR_FILENO, ": No such file\n", 15);
+	exit(2); }
+	if (execvp(argv[1], argv + 1) == -1)
+	{
+		perror("Error executing file");
+		return (2); }
+	if (close(fd) == -1)
+	{
+		perror("Error closing file");
+		return (3); }
+	return (0);
+}
 
 /**
 * ignore_code - here
