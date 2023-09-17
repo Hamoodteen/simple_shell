@@ -90,7 +90,6 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
-		free(command_path);
 		return; }
 	child = fork();
 	if (child == -1)
@@ -99,16 +98,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		exit(EXIT_FAILURE); }
 	else if (child == 0)
 	{
-		if (_strcmp(s, "$$") == 0)
-		{
-			child = getpid();
-			print_number(child);
-			_putchar('\n'); }
-		else if (_strcmp(s, "$?") == 0)
-		{
-			print_number(WEXITSTATUS(status));
-			_putchar('\n'); }
-		else if (execve(command_path, args, env) == -1)
+		if (execve(command_path, args, env) == -1)
 		{
 			write(STDERR_FILENO, argv0, _strlen(argv0));
 			write(STDERR_FILENO, ": ", 2);
@@ -121,3 +111,18 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	}
 	else
 		waitpid(child, &status, 0); }
+
+/**
+* ignore_code - here
+*	if (_strcmp(s, "$$") == 0)
+*	{
+*		child = getpid();
+*		print_number(child);
+*		_putchar('\n'); }
+*	else if (_strcmp(s, "$?") == 0)
+*	{
+*		print_number(WEXITSTATUS(status));
+*		_putchar('\n'); }
+*	if ((_strcmp(command, "$$") == 0) || (_strcmp(command, "$?") == 0))
+*		return (command);
+*/
