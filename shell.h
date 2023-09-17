@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <string.h>
+#include <ctype.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/wait.h>
