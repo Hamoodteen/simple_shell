@@ -60,16 +60,24 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
 	{
 		if (args[1] == NULL)
 		{
+
 			for (e = 0; env[e] != NULL; e++)
 			{
 				_puts(env[e]);
 				_putchar('\n'); }
+			return (-1);
 		}
 	}
 	else if (_strcmp(s, "setenv") == 0)
-		setenv(args[1], args[2], 1);
+	{
+		if (setenv(args[1], args[2], 1) != 0)
+			write(STDERR_FILENO, "Error\n", 7);
+		return (-1); }
 	else if (_strcmp(s, "unsetenv") == 0)
-		unsetenv(args[1]);
+	{
+		if (unsetenv(args[1]) != 0)
+			write(STDERR_FILENO, "Error\n", 7);
+		return (-1); }
 	return (1); }
 
 /**
