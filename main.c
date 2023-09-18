@@ -24,26 +24,29 @@ int main(int argc, char *argv[], char *env[])
 		len = i = 0;
 		s = NULL;
 		write(STDIN_FILENO, "$: ", 4);
-		if (_getline(&s, &len, stdin) != -1)
+		if (_getline(&s, &len, stdin) == -1)
 		{
-			s[_strcspn(s, "\n")] = '\0';
-			cnt++;
-			whitespace = 1;
-			for (i = 0; s[i] != '\0'; i++)
+			free(s);
+			exit(EXIT_SUCCESS); }
+		remove_newline(s);
+		remove_comment(s);
+		s[_strcspn(s, "\n")] = '\0';
+		cnt++;
+		whitespace = 1;
+		for (i = 0; s[i] != '\0'; i++)
+		{
+			if ((unsigned char)s[i] != ' ')
 			{
-				if ((unsigned char)s[i] != ' ')
-				{
-					whitespace = 0;
-					break; }
-			}
-			if ((s[0] == '\0') || (whitespace))
-			{
-				free(s);
-				continue; }
-			tok(s, args);
-			if (myexitenv(s, args, env, argv[0], cnt) != -1)
-				fork_process(s, args, env, argv[0], cnt); }
-		else
-			exit(EXIT_SUCCESS);
-	free(s); }
+				whitespace = 0;
+				break; }
+		}
+		if ((s[0] == '\0') || (whitespace))
+		{
+			free(s);
+			continue; }
+		tok(s, args);
+		if (myexitenv(s, args, env, argv[0], cnt) != -1)
+			fork_process(s, args, env, argv[0], cnt);
+	}
+	free(s);
 	return (0); }

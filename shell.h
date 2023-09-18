@@ -39,5 +39,7 @@ int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt);
 void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt);
 char *inttostring(int num);
 int filefd(char *argv[], int fd, char *env[]);
+void remove_comment(char *input);
+void remove_newline(char *str);
 
 #endif
