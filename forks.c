@@ -141,13 +141,9 @@ int filefd(char *argv[], int fd, char *env[])
 	write(STDERR_FILENO, ": No such file\n", 15);
 	exit(2); }
 	if (execve(argv[1], argv, env) == -1)
-	{
-		perror("Error executing file");
-		return (2); }
+		return (2);
 	if (close(fd) == -1)
-	{
-		perror("Error closing file");
-		return (3); }
+		return (3);
 	return (0);
 }
 
