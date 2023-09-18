@@ -28,8 +28,8 @@ int main(int argc, char *argv[], char *env[])
 		{
 			free(s);
 			exit(EXIT_SUCCESS); }
-		remove_newline(s);
-		remove_comment(s);
+		removeNewline(s);
+		removeComment(s);
 		s[_strcspn(s, "\n")] = '\0';
 		cnt++;
 		whitespace = 1;
