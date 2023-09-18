@@ -23,7 +23,6 @@ void removeComment(char *s)
  *removeNewline - removes new line from a string
  *@s: user input string
  */
-
 void removeNewline(char *s)
 {
 	int i = 0;
