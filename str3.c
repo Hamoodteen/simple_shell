@@ -1,14 +1,16 @@
 #include "shell.h"
 
 
-int check_substring(const char *str, const char *substring)
+int check_substring(char *str, char *substring)
 {
-  for (int i = 0; i < _strlen(str) - _strlen(substring) + 1; i++)
-  {
-    if (_strncmp(str + i, substring, _strlen(substring)) == 0)
+	int i;
+
+	for (i = 0; i < (int)_strlen(str) - (int)_strlen(substring) + 1; i++)
 	{
-      return (1);
-    }
-  }
-  return (0);
+		if (_strncmp(str + i, substring, _strlen(substring)) == 0)
+		{
+		return (1);
+		}
+	}
+	return (0);
 }
