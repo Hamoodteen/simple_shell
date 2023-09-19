@@ -35,3 +35,24 @@ void removeNewline(char *s)
 	}
 	s[i] = '\0';
 }
+
+/**
+ * splitCommands - split the string by ;
+ * @command: the string to be splited
+ * Return: the commmads
+*/
+char **splitCommands(char *command)
+{
+	int num_commands = 0;
+	char **commands = malloc(sizeof(char *) * 10);
+	char *token = _strtok(command, ";");
+
+	while (token != NULL)
+	{
+	commands[num_commands++] = token;
+	token = _strtok(NULL, ";");
+	}
+	commands[num_commands] = NULL;
+
+	return (commands);
+}

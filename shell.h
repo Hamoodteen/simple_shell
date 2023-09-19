@@ -41,5 +41,6 @@ char *inttostring(int num);
 int filefd(char *argv[], int fd, char *env[]);
 void removeComment(char *input);
 void removeNewline(char *str);
+char **splitCommands(char *command);
 
 #endif

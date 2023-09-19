@@ -11,8 +11,8 @@ int main(int argc, char *argv[], char *env[])
 {
 	char *args[50], *s;
 	size_t len;
-	int i, whitespace, cnt = 0;
-	int a, fd = 0;
+	int i, whitespace, cnt = 0, a, fd = 0;
+	char **commands = NULL;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -44,9 +44,13 @@ int main(int argc, char *argv[], char *env[])
 		{
 			free(s);
 			continue; }
-		tok(s, args);
-		if (myexitenv(s, args, env, argv[0], cnt) != -1)
-			fork_process(s, args, env, argv[0], cnt);
+		commands = splitCommands(s);
+		for (i = 0; commands[i] != NULL; i++)
+		{
+			tok(commands[i], args);
+			if (myexitenv(commands[i], args, env, argv[0], cnt) != -1)
+				fork_process(commands[i], args, env, argv[0], cnt);
+		}
 	}
 	free(s);
 	return (0); }
