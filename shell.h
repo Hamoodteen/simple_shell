@@ -51,5 +51,6 @@ int myenv(char **args, char **env, int e);
 char *_getenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 int _unsetenv(char *name);
+int check_substring(const char *str, const char *substring);
 
 #endif
