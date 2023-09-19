@@ -43,7 +43,7 @@ char *inttostring(int num);
 int filefd(char *argv[], int fd, char *env[]);
 void removeComment(char *input);
 void removeNewline(char *str);
-char **splitCommands(char *command);
+char **splitCommands(char *command, const char *delim);
 char *_cd(char **newdir, char *argv0, int cnt);
 int space(char *s, int whitespace, int i);
 void _myexit(char **args, char *argv0, int cnt);

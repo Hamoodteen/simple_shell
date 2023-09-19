@@ -9,9 +9,9 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	char *args[50], *s, **commands = NULL;
+	char *args[50], *s, **commands = NULL, **oneCommand = NULL;
 	size_t len;
-	int i, whitespace, cnt = 0, a, fd = 0;
+	int i, j, whitespace, cnt = 0, a, fd = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -35,13 +35,20 @@ int main(int argc, char *argv[], char *env[])
 		{
 			free(s);
 			continue; }
-		commands = splitCommands(s);
+		commands = splitCommands(s, ";");
 		for (i = 0; commands[i] != NULL; i++)
 		{
-			tok(commands[i], args);
-			if (myexitenvcd(commands[i], args, env, argv[0], cnt) != -1)
-				fork_process(commands[i], args, env, argv[0], cnt);
+			oneCommand = (char **)commands[i];
+			oneCommand = splitCommands(commands[i], "&&||");
+			for (j = 0; oneCommand[j] != NULL; j++)
+			{
+				tok(oneCommand[j], args);
+				if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
+					fork_process(oneCommand[j], args, env, argv[0], cnt);
+			}
+			free(oneCommand);
 		}
+		free(commands);
 	}
 	free(s);
 	return (0); }

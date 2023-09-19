@@ -1,9 +1,10 @@
 #include "shell.h"
 
 /**
- * tok - tokanization for the args
- * @s: the user input
- * @args: like {'/bin/ls', '-la'}
+ * tok - tokanization for the args and convert s to s[0] only like
+ * s = "/bin/ls -la" to s = "/bin/ls"
+ * @s: the user input like "/bin/ls -la"
+ * @args: return like {'/bin/ls', '-la'}
 */
 void tok(char *s, char *args[])
 {

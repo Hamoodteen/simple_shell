@@ -60,18 +60,19 @@ int space(char *s, int whitespace, int i)
 /**
  * splitCommands - split the string by ;
  * @command: the string to be splited
+ * @delim: the seperator like " " or ";"
  * Return: the commmads
 */
-char **splitCommands(char *command)
+char **splitCommands(char *command, const char *delim)
 {
 	int num_commands = 0;
 	char **commands = malloc(sizeof(char *) * 10);
-	char *token = _strtok(command, ";");
+	char *token = _strtok(command, delim);
 
 	while (token != NULL)
 	{
 		commands[num_commands++] = token;
-		token = _strtok(NULL, ";");
+		token = _strtok(NULL, delim);
 	}
 	commands[num_commands] = NULL;
 
