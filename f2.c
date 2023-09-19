@@ -12,7 +12,7 @@ void removeComment(char *s)
 		s[i] = '\0';
 	while (s[i] != '\0')
 	{
-		if (s[i] == '#' && s[i - 1] == ' ')
+		if ((s[i] == '#') && (s[i - 1] == ' '))
 			break;
 		i++;
 	}
@@ -37,6 +37,27 @@ void removeNewline(char *s)
 }
 
 /**
+ * space - f
+ * @s: char
+ * @whitespace: int
+ * @i: int
+ * Return: int
+*/
+int space(char *s, int whitespace, int i)
+{
+	s[_strcspn(s, "\n")] = '\0';
+	whitespace = 1;
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if ((unsigned char)s[i] != ' ')
+		{
+			whitespace = 0;
+			break; }
+	}
+	return (whitespace);
+}
+
+/**
  * splitCommands - split the string by ;
  * @command: the string to be splited
  * Return: the commmads
@@ -55,4 +76,49 @@ char **splitCommands(char *command)
 	commands[num_commands] = NULL;
 
 	return (commands);
+}
+
+/**
+ * _cd - f
+ * @newdir: char
+ * @argv0: argv0
+ * @cnt: int
+ * Return: char
+*/
+char *_cd(char **newdir, char *argv0, int cnt)
+{
+	char *homedir = _getenv("HOME");
+	char *oldpath;
+
+	if (newdir[1] == NULL)
+	{
+		chdir(homedir);
+		_setenv("PWD", homedir, 1);
+		return (homedir); }
+	if (_strcmp(newdir[1], "-") == 0)
+	{
+		oldpath = _getenv("PWD");
+		chdir(oldpath);
+		_setenv("PWD", oldpath, 1);
+		return (oldpath);
+	}
+	else
+	{
+		if (chdir(newdir[1]) == 0)
+		{
+			_setenv("PWD", newdir[1], 1);
+			return (newdir[1]);
+		}
+		else
+		{
+			oldpath = _getenv("PWD");
+			write(STDERR_FILENO, argv0, _strlen(argv0));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, ": cd: can't cd to ", 18);
+			write(STDERR_FILENO, newdir[1], _strlen(newdir[1]));
+			write(STDERR_FILENO, "\n", 1);
+			return (oldpath);
+		}
+	}
 }

@@ -23,60 +23,41 @@ void tok(char *s, char *args[])
 }
 
 /**
- * myexitenv - exit command handle
+ * myexitenvcd - command handle
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
  * @env: environment variables
  * @argv0: argv0
  * @cnt: count
- * Return: 1 if no exit or on print env, -1 to many arguments,
- * or no return(exit) on success exit
+ * Return: int
 */
-int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt)
+int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
-	int ato, e;
+	int ee, e = 0;
+	char *mycd;
 
-	ato = e = 0;
 	if (_strcmp(s, "exit") == 0)
-	{
-		if (args[1] != NULL)
-		{
-			ato = _atoi(args[1]);
-			if ((*args[1] < '0') || (*args[1] > '9'))
-			{
-				write(STDERR_FILENO, argv0, _strlen(argv0));
-				write(STDERR_FILENO, ": ", 2);
-				write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
-				write(STDERR_FILENO, ": exit: Illegal number: ", 24);
-				write(STDERR_FILENO, args[1], _strlen(args[1]));
-				write(STDERR_FILENO, "\n", 1);
-				exit(2); }
-			else if ((*args[1] > '0') || (*args[1] < '9'))
-				exit(ato);
-		}
-		else
-			exit(EXIT_SUCCESS); }
+		_myexit(args, argv0, cnt);
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
-		if (args[1] == NULL)
-		{
-
-			for (e = 0; env[e] != NULL; e++)
-			{
-				_puts(env[e]);
-				_putchar('\n'); }
-			return (-1);
-		}
-	}
+		ee = myenv(args, env, e);
+		return (ee); }
 	else if (_strcmp(s, "setenv") == 0)
 	{
-		if (setenv(args[1], args[2], 1) != 0)
+		if (_setenv(args[1], args[2], 1) != 0)
 			write(STDERR_FILENO, "Error\n", 7);
 		return (-1); }
 	else if (_strcmp(s, "unsetenv") == 0)
 	{
-		if (unsetenv(args[1]) != 0)
+		if (_unsetenv(args[1]) != 0)
 			write(STDERR_FILENO, "Error\n", 7);
+		return (-1); }
+	else if (_strcmp(s, "cd") == 0)
+	{
+		_cd(args, argv0, cnt);
+		(void)mycd;
+		/* mycd = _cd(args, argv0, cnt); */
+		/* write(STDIN_FILENO, mycd, _strlen(mycd)); */
 		return (-1); }
 	return (1); }
 
@@ -146,6 +127,34 @@ int filefd(char *argv[], int fd, char *env[])
 	if (close(fd) == -1)
 		return (3);
 	return (0);
+}
+
+/**
+ * _myexit - f
+ * @args: char
+ * @argv0: char
+ * @cnt: int
+*/
+void _myexit(char **args, char *argv0, int cnt)
+{
+	int ato = 0;
+
+	if (args[1] != NULL)
+	{
+		ato = _atoi(args[1]);
+		if ((*args[1] < '0') || (*args[1] > '9'))
+		{
+			write(STDERR_FILENO, argv0, _strlen(argv0));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, ": exit: Illegal number: ", 24);
+			write(STDERR_FILENO, args[1], _strlen(args[1]));
+			write(STDERR_FILENO, "\n", 1);
+			exit(2); }
+		else if ((*args[1] > '0') || (*args[1] < '9'))
+			exit(ato); }
+	else
+		exit(EXIT_SUCCESS);
 }
 
 /**

@@ -15,6 +15,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
+extern char **environ;
+
 int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
@@ -35,12 +37,19 @@ int _fgetc(FILE *stream);
 char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strcpy(char *dest, char *src);
 void tok(char *s, char *args[]);
-int myexitenv(char *s, char *args[], char *env[], char *argv0, int cnt);
+int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt);
 void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt);
 char *inttostring(int num);
 int filefd(char *argv[], int fd, char *env[]);
 void removeComment(char *input);
 void removeNewline(char *str);
 char **splitCommands(char *command);
+char *_cd(char **newdir, char *argv0, int cnt);
+int space(char *s, int whitespace, int i);
+void _myexit(char **args, char *argv0, int cnt);
+int myenv(char **args, char **env, int e);
+char *_getenv(char *name);
+int _setenv(char *name, char *value, int overwrite);
+int _unsetenv(char *name);
 
 #endif

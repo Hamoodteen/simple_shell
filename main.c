@@ -23,23 +23,15 @@ int main(int argc, char *argv[], char *env[])
 	{
 		len = i = 0;
 		s = NULL;
-		write(STDIN_FILENO, "$: ", 4);
+		write(STDIN_FILENO, "~$: ", 5);
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
 			exit(EXIT_SUCCESS); }
 		removeNewline(s);
 		removeComment(s);
-		s[_strcspn(s, "\n")] = '\0';
 		cnt++;
-		whitespace = 1;
-		for (i = 0; s[i] != '\0'; i++)
-		{
-			if ((unsigned char)s[i] != ' ')
-			{
-				whitespace = 0;
-				break; }
-		}
+		whitespace = space(s, whitespace, i);
 		if ((s[0] == '\0') || (whitespace))
 		{
 			free(s);
@@ -48,7 +40,7 @@ int main(int argc, char *argv[], char *env[])
 		for (i = 0; commands[i] != NULL; i++)
 		{
 			tok(commands[i], args);
-			if (myexitenv(commands[i], args, env, argv[0], cnt) != -1)
+			if (myexitenvcd(commands[i], args, env, argv[0], cnt) != -1)
 				fork_process(commands[i], args, env, argv[0], cnt);
 		}
 	}

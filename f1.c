@@ -89,7 +89,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (nchars >= (bufsize - 1))
 		{
 			bufsize *= 2;
-			newline = (char *)_realloc(line, 0, bufsize);
+			newline = (char *)_realloc(line, sizeof(line), bufsize);
 			if (newline == NULL)
 			{
 				free(line);
