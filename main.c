@@ -25,7 +25,7 @@ int main(int argc, char *argv[], char *env[])
 		write(STDIN_FILENO, "~$: ", 5);
 		if (_getline(&s, &len, stdin) == -1)
 		{
-			write(STDIN_FILENO, "\n", 2);
+			write(STDERR_FILENO, "\n", 2);
 			free(s);
 			exit(EXIT_SUCCESS); }
 		removeNewline(s);
