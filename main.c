@@ -9,10 +9,9 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	char *args[50], *s;
+	char *args[50], *s, **commands = NULL;
 	size_t len;
 	int i, whitespace, cnt = 0, a, fd = 0;
-	char **commands = NULL;
 
 	(void)argc;
 	if (argv[1] != NULL)
