@@ -49,6 +49,6 @@ int main(int argc, char *argv[], char *env[])
 			free(oneCommand);
 		}
 		free(commands);
+		free(s);
 	}
-	free(s);
 	return (0); }
