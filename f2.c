@@ -49,8 +49,8 @@ char **splitCommands(char *command)
 
 	while (token != NULL)
 	{
-	commands[num_commands++] = token;
-	token = _strtok(NULL, ";");
+		commands[num_commands++] = token;
+		token = _strtok(NULL, ";");
 	}
 	commands[num_commands] = NULL;
 
