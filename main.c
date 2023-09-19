@@ -12,9 +12,6 @@ int main(int argc, char *argv[], char *env[])
 	char *args[50], *s, **commands = NULL, **oneCommand = NULL;
 	size_t len;
 	int i, j, whitespace, cnt = 0, a, fd = 0;
-	char str[] = "This is a sample string.";
-  	char substring[] = "sample";
-	int result;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -54,13 +51,4 @@ int main(int argc, char *argv[], char *env[])
 		free(commands);
 	}
 	free(s);
-	result = check_substring(str, substring);
-
-	if (result == 1)
-	{
-		printf("The substring exists in the string.\n");
-	} else
-	{
-		printf("The substring does not exist in the string.\n");
-	}
 	return (0); }
