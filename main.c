@@ -39,15 +39,21 @@ int main(int argc, char *argv[], char *env[])
 		for (i = 0; commands[i] != NULL; i++)
 		{
 			oneCommand = (char **)commands[i];
-			oneCommand = splitCommands(commands[i], "&&||");
+			if (check_substring(commands[i], "&&") == 1)
+			{
+				oneCommand = splitCommands(commands[i], "&&"); }
+			else if (check_substring(commands[i], "||") == 1)
+			{
+				oneCommand = splitCommands(commands[i], "||"); }
+			else
+			{
+				oneCommand = splitCommands(commands[i], ""); }
 			for (j = 0; oneCommand[j] != NULL; j++)
 			{
 				tok(oneCommand[j], args);
 				if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
-					fork_process(oneCommand[j], args, env, argv[0], cnt);
-			}
-			free(oneCommand);
-		}
+					fork_process(oneCommand[j], args, env, argv[0], cnt); }
+			free(oneCommand); }
 		free(commands);
 		free(s);
 	}
