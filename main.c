@@ -39,7 +39,8 @@ int main(int argc, char *argv[], char *env[])
 		for (i = 0; commands[i] != NULL; i++)
 		{
 			tok(commands[i], args);
-			if ((st = myexitenvcd(commands[i], args, env, argv[0], cnt)) != -1)
+			st = myexitenvcd(commands[i], args, env, argv[0], cnt);
+			if (st != -1)
 				st = fork_process(commands[i], args, env, argv[0], cnt);
 		}
 		free(commands);
