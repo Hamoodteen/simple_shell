@@ -28,8 +28,9 @@ int check_substring(char *str, char *substring)
  * @argv: arg vector from main func
  * @env: environment from main func
  * @cnt: counter
+ * Return: status
 */
-void initializer(char **commands, char *argv[], char *env[], int cnt)
+int initializer(char **commands, char *argv[], char *env[], int cnt)
 {
 	char **oneCommand = NULL, *args[50];
 	int i, j, exit_status = 0;
@@ -49,10 +50,11 @@ void initializer(char **commands, char *argv[], char *env[], int cnt)
 		for (j = 0; oneCommand[j] != NULL; j++)
 		{
 			tok(oneCommand[j], args);
-			if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
+			if ((exit_status = myexitenvcd(oneCommand[j], args, env, argv[0], cnt)) != -1)
 			{
-				fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
-			}
+				exit_status = fork_process(oneCommand[j], args, env, argv[0], cnt);
+				return (exit_status); }
 		}
 		free(oneCommand); }
+	return (0);
 }

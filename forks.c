@@ -68,15 +68,13 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
  * @args: like {'/bin/ls', '-la'}
  * @env: env
  * @cnt: count
- * @ptr_to_exit_status: pointer to the last exit status value to
- * bring it to the main function
  * @argv0: argv0
+ * Return: statues
 */
-void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt,
-int *ptr_to_exit_status)
+int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	pid_t child;
-	int status, exit_status;
+	int status, exit_status = 0;
 	char *command_path = _which(args[0]);
 
 	if (command_path == NULL)
@@ -87,12 +85,12 @@ int *ptr_to_exit_status)
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
-		exit(127); }
+		return (127); }
 	child = fork();
 	if (child == -1)
 	{
 		perror(s);
-		exit(EXIT_FAILURE); }
+		return(1); }
 	else if (child == 0)
 	{
 		if (execve(command_path, args, env) == -1)
@@ -104,7 +102,7 @@ int *ptr_to_exit_status)
 			write(STDERR_FILENO, args[0], _strlen(args[0]));
 			perror(args[0]);
 			free(command_path);
-			exit(EXIT_FAILURE); }
+			return(1); }
 	}
 	else
 	{
@@ -112,9 +110,10 @@ int *ptr_to_exit_status)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			*ptr_to_exit_status = exit_status;
+			return (exit_status);
 		}
 	}
+	return (exit_status);
 }
 
 /**

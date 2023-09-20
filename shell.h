@@ -38,8 +38,7 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strcpy(char *dest, char *src);
 void tok(char *s, char *args[]);
 int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt);
-void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt,
-int *ptr_to_exit_status);
+int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt);
 char *inttostring(int num);
 int filefd(char *argv[], int fd, char *env[]);
 void removeComment(char *input);
@@ -53,6 +52,6 @@ char *_getenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 int _unsetenv(char *name);
 int check_substring(char *str, char *substring);
-void initializer(char **commands, char *argv[], char *env[], int cnt);
+int initializer(char **commands, char *argv[], char *env[], int cnt);
 
 #endif
