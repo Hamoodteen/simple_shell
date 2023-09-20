@@ -58,11 +58,11 @@ int main(int argc, char *argv[], char *env[])
 	{
 		len = i = 0;
 		s = NULL;
-		write(STDOUT_FILENO, "~$: ", 5);
+		write(STDIN_FILENO, "~$: ", 5);
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
-			exit(EXIT_FAILURE); }
+			exit(EXIT_SUCCESS); }
 		removeNewline(s);
 		removeComment(s);
 		cnt++;
