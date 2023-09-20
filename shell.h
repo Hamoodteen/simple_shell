@@ -17,7 +17,6 @@
 
 extern char **environ;
 
-int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
