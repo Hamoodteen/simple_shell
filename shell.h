@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 4096
 
 extern char **environ;
 
