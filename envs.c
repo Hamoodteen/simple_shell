@@ -14,7 +14,7 @@ int myenv(char **args, char **env, int e)
 		for (e = 0; env[e] != NULL; e++)
 		{
 			_puts(env[e]);
-			_putchar('\n'); }
+			_puts("\n"); }
 		return (0);
 	}
 	return (1);

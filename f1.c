@@ -1,16 +1,6 @@
 #include "shell.h"
 
 /**
- * _putchar - prints a string
- * @c: pointer to string to print
- * Return: string
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
  * _puts - prints a string
  * @c: pointer to string to print
  * Return: string
@@ -33,7 +23,7 @@ int print_number(long int n)
 
 	if (n < 0)
 	{
-		_putchar('-');
+		_puts("-");
 		n = -n;
 		cnt++;
 	}
@@ -47,7 +37,7 @@ int print_number(long int n)
 	while (divisor > 0)
 	{
 		cnt++;
-		_putchar('0' + n / divisor);
+		_puts("0" + (n / divisor));
 		n %= divisor;
 		divisor /= 10;
 	}
@@ -141,4 +131,44 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	}
 	free(ptr);
 	return (ptr1);
+}
+
+/**
+ * initializer - call fork_process func and myexitenvcd func after
+ * handling && || seperator
+ * @commands: commads seperated by semicolon;
+ * @argv: arg vector from main func
+ * @env: environment from main func
+ * @cnt: counter
+ * Return: status
+*/
+int initializer(char **commands, char *argv[], char *env[], int cnt)
+{
+	char **oneCommand = NULL, *args[50];
+	int i, j, ex_st = 0;
+
+	for (i = 0; commands[i] != NULL; i++)
+	{
+		oneCommand = (char **)commands[i];
+		if (check_substring(commands[i], "&&") == 1)
+		{
+			oneCommand = splitCommands(commands[i], "&&"); }
+		else if (check_substring(commands[i], "||") == 1)
+		{
+			oneCommand = splitCommands(commands[i], "||"); }
+		else
+		{
+			oneCommand = splitCommands(commands[i], ""); }
+		for (j = 0; oneCommand[j] != NULL; j++)
+		{
+			tok(oneCommand[j], args);
+			ex_st = myexitenvcd(oneCommand[j], args, env, argv[0], cnt);
+			if (ex_st == 2)
+				break;
+			if (ex_st != 0)
+				ex_st = fork_process(oneCommand[j], args, env, argv[0], cnt);
+		}
+		free(oneCommand);
+	}
+	return (ex_st);
 }
