@@ -5,7 +5,7 @@
  * @argc: the number of arg vector
  * @argv: arg vector
  * @env: environment
- * Return: exit status 0 or 1
+ * Return: exit status
 */
 int main(int argc, char *argv[], char *env[])
 {
