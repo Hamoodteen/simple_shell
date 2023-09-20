@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
-			return(st); }
+			return(-1); }
 		removeNewline(s);
 		removeComment(s);
 		cnt++;
@@ -39,6 +39,6 @@ int main(int argc, char *argv[], char *env[])
 		st = initializer(commands, argv, env, cnt);
 		free(commands);
 		free(s);
-		return (st);
+		return (0);
 	}
 	return (0); }
