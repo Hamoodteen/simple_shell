@@ -1,42 +1,6 @@
 #include "shell.h"
 
 /**
- * initializer - call fork_process func and myexitenvcd func after
- * handling && || seperator
- * @commands: commads seperated by semicolon;
- * @argv: arg vector from main func
- * @env: environment from main func
- * @cnt: counter
-*/
-void initializer(char **commands, char *argv[], char *env[], int cnt)
-{
-	char **oneCommand = NULL, *args[50];
-	int i, j, exit_status = 0;
-
-	for (i = 0; commands[i] != NULL; i++)
-	{
-		oneCommand = (char **)commands[i];
-		if (check_substring(commands[i], "&&") == 1)
-		{
-			oneCommand = splitCommands(commands[i], "&&"); }
-		else if (check_substring(commands[i], "||") == 1)
-		{
-			oneCommand = splitCommands(commands[i], "||"); }
-		else
-		{
-			oneCommand = splitCommands(commands[i], ""); }
-		for (j = 0; oneCommand[j] != NULL; j++)
-		{
-			tok(oneCommand[j], args);
-			if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
-			{
-				fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
-			}
-		}
-		free(oneCommand); }
-}
-
-/**
  * main - the main func for simple shell(sh)
  * @argc: the number of arg vector
  * @argv: arg vector
