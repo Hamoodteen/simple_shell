@@ -48,6 +48,5 @@ int main(int argc, char *argv[], char *env[])
 				st = fork_process(commands[i], args, env, argv[0], cnt);
 		}
 		free(commands);
-		free(s);
-	}
+		free(s); }
 	return (0); }
