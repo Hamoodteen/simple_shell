@@ -51,13 +51,17 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 	else if (_strcmp(s, "setenv") == 0)
 	{
 		if (_setenv(args[1], args[2], 1) != 0)
+		{
 			write(STDERR_FILENO, "Error\n", 7);
-		return (-1); }
+			return (2); }
+		return (0); }
 	else if (_strcmp(s, "unsetenv") == 0)
 	{
 		if (_unsetenv(args[1]) != 0)
+		{
 			write(STDERR_FILENO, "Error\n", 7);
-		return (-1); }
+			return (2); }
+		return (0); }
 	else if (_strcmp(s, "cd") == 0)
 	{
 		_cd(args, argv0, cnt);
