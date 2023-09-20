@@ -39,5 +39,6 @@ int main(int argc, char *argv[], char *env[])
 		st = initializer(commands, argv, env, cnt);
 		free(commands);
 		free(s);
+		return (st);
 	}
-	return (st); }
+	return (0); }
