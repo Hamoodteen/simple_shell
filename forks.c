@@ -34,11 +34,13 @@ void tok(char *s, char *args[])
 */
 int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
-	int ee, e = 0;
+	int ee, e = 0, ex = 0;
 	char *mycd;
 
 	if (_strcmp(s, "exit") == 0)
-		_myexit(args, argv0, cnt);
+	{
+		ex = _myexit(args, argv0, cnt);
+		exit(ex); }
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		ee = myenv(args, env, e);
@@ -143,8 +145,9 @@ int filefd(char *argv[], int fd, char *env[])
  * @args: char
  * @argv0: char
  * @cnt: int
+ * Return: int
 */
-void _myexit(char **args, char *argv0, int cnt)
+int _myexit(char **args, char *argv0, int cnt)
 {
 	int ato = 0;
 
@@ -159,11 +162,11 @@ void _myexit(char **args, char *argv0, int cnt)
 			write(STDERR_FILENO, ": exit: Illegal number: ", 24);
 			write(STDERR_FILENO, args[1], _strlen(args[1]));
 			write(STDERR_FILENO, "\n", 1);
-			exit(2); }
+			return (2); }
 		else if ((*args[1] > '0') || (*args[1] < '9'))
-			exit(ato); }
-	else
-		exit(EXIT_SUCCESS);
+			return (ato);
+	}
+	return (0);
 }
 
 /**
