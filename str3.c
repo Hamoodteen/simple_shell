@@ -2,7 +2,7 @@
 
 /**
  * check_substring - check if substring exists in string
- * @str: gthe string
+ * @str: theg string
  * @substring: the substring
  * Return: 1 if the substring exists in string
  * or 0 if the substring doesn't exist in string
