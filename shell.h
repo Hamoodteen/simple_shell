@@ -47,7 +47,7 @@ void removeNewline(char *str);
 char **splitCommands(char *command, const char *delim);
 char *_cd(char **newdir, char *argv0, int cnt);
 int space(char *s, int whitespace, int i);
-void _myexit(char **args, char *argv0, int cnt);
+void _myexit(char **args);
 int myenv(char **args, char **env, int e);
 char *_getenv(char *name);
 int _setenv(char *name, char *value, int overwrite);

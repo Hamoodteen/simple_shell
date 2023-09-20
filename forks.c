@@ -38,7 +38,7 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 	char *mycd;
 
 	if (_strcmp(s, "exit") == 0)
-		_myexit(args, argv0, cnt);
+		_myexit(args);
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		ee = myenv(args, env, e);
@@ -142,31 +142,21 @@ int filefd(char *argv[], int fd, char *env[])
 }
 
 /**
- * _myexit - f
- * @args: char
- * @argv0: char
- * @cnt: int
-*/
-void _myexit(char **args, char *argv0, int cnt)
+ * _myexit - exits the shell with or without a return of status n
+ * @arv: array of words of the entered line
+ */
+void _myexit(char **arv)
 {
-	int ato = 0;
+	int n;
 
-	if (args[1] != NULL)
+	if (arv[1])
 	{
-		ato = _atoi(args[1]);
-		if ((*args[1] < '0') || (*args[1] > '9'))
-		{
-			write(STDERR_FILENO, argv0, _strlen(argv0));
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
-			write(STDERR_FILENO, ": exit: Illegal number: ", 24);
-			write(STDERR_FILENO, args[1], _strlen(args[1]));
-			write(STDERR_FILENO, "\n", 1);
-			exit(2); }
-		else if ((*args[1] > '0') || (*args[1] < '9'))
-			exit(ato); }
-	else
-		exit(EXIT_SUCCESS);
+		n = _atoi(arv[1]);
+		if (n <= -1)
+			n = 2;
+		exit(n);
+	}
+	exit(0);
 }
 
 /**
