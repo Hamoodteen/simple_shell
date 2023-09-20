@@ -21,6 +21,9 @@ extern char **environ;
 int _puts(char *c);
 int print_number(long int n);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t whileget(char **lineptr, size_t *n, size_t bytes_read,
+size_t line_length, size_t buffer_pos, size_t buffer_size,
+FILE *stream, char buffer[], char *line_end, size_t i);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);

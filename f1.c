@@ -23,7 +23,7 @@ int print_number(long int n)
 
 	if (n < 0)
 	{
-		_putchar('-');
+		_puts("-");
 		n = -n;
 		cnt++;
 	}
@@ -37,7 +37,7 @@ int print_number(long int n)
 	while (divisor > 0)
 	{
 		cnt++;
-		_putchar('0' + n / divisor);
+		_puts("0" + (n / divisor));
 		n %= divisor;
 		divisor /= 10;
 	}
@@ -56,54 +56,61 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	static char buffer[BUFFER_SIZE];
 	static size_t buffer_pos, buffer_size;
 	size_t line_length, bytes_read, i, wg;
-	char *line_end;
-
-	buffer_pos = buffer_size = 0;
-	if (lineptr == NULL || n == NULL || stream == NULL)
-		return (-1);
-	if (buffer_pos >= buffer_size)
-	{
-		bytes_read = read(fileno(stream), buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
+	char *line_end = NULL;
+		buffer_pos = buffer_size = line_length = i = 0;
+		if (lineptr == NULL || n == NULL || stream == NULL)
 			return (-1);
-		buffer_size = (size_t)bytes_read;
-		buffer_pos = 0; }
-	line_length = 0;
-	line_end = NULL;
-	while (buffer_pos + line_length < buffer_size)
-	{
-		if (buffer[buffer_pos + line_length] == '\n')
+		if (buffer_pos >= buffer_size)
 		{
-			line_end = &buffer[buffer_pos + line_length];
-			break; }
-		line_length++; }
-	if (line_end != NULL)
-	{
-		line_length++;
-		if (*lineptr == NULL || *n < line_length)
-		{
-			*lineptr = (char *)realloc(*lineptr, line_length);
-			if (*lineptr == NULL)
+			bytes_read = read(fileno(stream), buffer, BUFFER_SIZE);
+			if (bytes_read <= 0)
 				return (-1);
-			*n = line_length; }
-		for (i = 0; i < line_length; i++)
-			(*lineptr)[i] = buffer[buffer_pos + i];
-		buffer_pos += line_length;
-		return ((ssize_t)line_length); }
-	while (1)
-	{
-		wg = whileget(lineptr, n, bytes_read, line_length,
-		buffer_pos, buffer_size, stream, buffer, line_end, i);
-		return (wg); }
+			buffer_size = (size_t)bytes_read;
+			buffer_pos = 0; }
+		while (buffer_pos + line_length < buffer_size)
+		{
+			if (buffer[buffer_pos + line_length] == '\n')
+			{
+				line_end = &buffer[buffer_pos + line_length];
+				break; }
+			line_length++; }
+		if (line_end != NULL)
+		{
+			line_length++;
+			if (*lineptr == NULL || *n < line_length)
+			{
+				*lineptr = (char *)realloc(*lineptr, line_length);
+				if (*lineptr == NULL)
+					return (-1);
+				*n = line_length; }
+			for (i = 0; i < line_length; i++)
+				(*lineptr)[i] = buffer[buffer_pos + i];
+			buffer_pos += line_length;
+			return ((ssize_t)line_length); }
+		while (1)
+		{
+			wg = whileget(lineptr, n, bytes_read, line_length,
+			buffer_pos, buffer_size, stream, buffer, line_end, i);
+			return (wg); }
 }
 
 /**
  * whileget - f
+ * @lineptr: lineptr
+ * @n: n
+ * @bytes_read: bytes_read
+ * @line_length: line_length
+ * @buffer_pos: buffer_pos
+ * @buffer_size: buffer_size
+ * @stream: stream
+ * @buffer: buffer
+ * @line_end: line_end
+ * @i: i
  * Return: int
 */
 ssize_t whileget(char **lineptr, size_t *n, size_t bytes_read,
 size_t line_length, size_t buffer_pos, size_t buffer_size,
-FILE *stream, char buffer[], char *line_end, int i)
+FILE *stream, char buffer[], char *line_end, size_t i)
 {
 	bytes_read = read(fileno(stream), buffer, BUFFER_SIZE);
 	if (bytes_read <= 0)
@@ -130,6 +137,7 @@ FILE *stream, char buffer[], char *line_end, int i)
 			(*lineptr)[i] = buffer[buffer_pos + i];
 		buffer_pos += line_length;
 		return ((ssize_t)line_length); }
+	return (0);
 }
 
 /**
