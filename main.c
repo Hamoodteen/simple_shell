@@ -40,6 +40,10 @@ int main(int argc, char *argv[], char *env[])
 		{
 			tok(commands[i], args);
 			st = myexitenvcd(commands[i], args, env, argv[0], cnt);
+			if (st == 2)
+			{
+				st = 2;
+				break; }
 			if (st != 0)
 				st = fork_process(commands[i], args, env, argv[0], cnt);
 		}

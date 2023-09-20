@@ -43,7 +43,7 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 		if (ex != 2)
 			exit(ex);
 		else
-			return (0); }
+			return (2); }
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		ee = myenv(args, env, e);
