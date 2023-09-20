@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * check_substring - check if substring exists in string
+ * check_substring - check if substring egxists in string
  * @str: the string
  * @substring: the substring
  * Return: 1 if the substring exists in string
