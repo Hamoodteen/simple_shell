@@ -132,7 +132,7 @@ int filefd(char *argv[], int fd, char *env[])
 	write(STDERR_FILENO, ": 0: cannot open ", 17);
 	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
 	write(STDERR_FILENO, ": No such file\n", 15);
-	exit(2); }
+	return (2); }
 	if (execve(argv[1], argv, env) == -1)
 		return (2);
 	if (close(fd) == -1)
