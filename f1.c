@@ -64,7 +64,7 @@ int print_number(long int n)
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
 	char *newline, *line = NULL;
-	ssize_t bufsize = 8192, nchars = 0;
+	ssize_t bufsize = 16384, nchars = 0;
 	int c;
 
 	if ((lineptr == NULL) || (n == NULL) || (stream == NULL))
