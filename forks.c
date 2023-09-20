@@ -67,7 +67,7 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	{
 		write(STDERR_FILENO, argv0, _strlen(argv0));
 		write(STDERR_FILENO, ": ", 2);
-		write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+		write(STDERR_FILENO, inttostring(cnt), _strlen(inttostring(cnt)));
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
@@ -83,7 +83,7 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		{
 			write(STDERR_FILENO, argv0, _strlen(argv0));
 			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, inttostring(cnt), _strlen(inttostring(cnt)));
 			write(STDERR_FILENO, ": ", 2);
 			write(STDERR_FILENO, args[0], _strlen(args[0]));
 			perror(args[0]);
@@ -136,7 +136,7 @@ char *_cd(char **newdir, char *argv0, int cnt)
 			oldpath = _getenv("PWD");
 			write(STDERR_FILENO, argv0, _strlen(argv0));
 			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, inttostring(cnt), _strlen(inttostring(cnt)));
 			write(STDERR_FILENO, ": cd: can't cd to ", 18);
 			write(STDERR_FILENO, newdir[1], _strlen(newdir[1]));
 			write(STDERR_FILENO, "\n", 1);
@@ -150,10 +150,14 @@ char *_cd(char **newdir, char *argv0, int cnt)
  * @argv: argv
  * @fd: file
  * @env: env
+ * @cnt: count
  * Return: int
 */
-int filefd(char *argv[], int fd, char *env[])
+int filefd(char *argv[], int fd, char *env[], int cnt)
 {
+	char buffer[8192], *start, *end, *args[2];
+	ssize_t bytes_read;
+
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -162,8 +166,33 @@ int filefd(char *argv[], int fd, char *env[])
 	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
 	write(STDERR_FILENO, ": No such file\n", 15);
 	return (2); }
-	if (execve(argv[1], argv, env) == -1)
-		return (2);
+	bytes_read = read(fd, buffer, sizeof(buffer));
+	while (bytes_read > 0)
+	{
+		start = end = buffer;
+		while (end < buffer + bytes_read)
+		{
+			if (*end == '\n')
+			{
+				*end = '\0';
+				if (_strlen(start) > 0)
+				{
+					args[0] = start;
+					args[1] = NULL;
+					if (execve(start, args, env) == -1)
+					{
+						write(STDERR_FILENO, argv[1], _strlen(argv[1]));
+						write(STDERR_FILENO, ": ", 2);
+						write(STDERR_FILENO, inttostring(cnt), _strlen(inttostring(cnt)));
+						write(STDERR_FILENO, ": ", 2);
+						write(STDERR_FILENO, args[0], _strlen(args[0]));
+						write(STDERR_FILENO, ": not found\n", 12);
+						cnt++; }
+				}
+				start = end + 1; }
+			end++; }
+		return (127);
+	}
 	if (close(fd) == -1)
 		return (3);
 	return (0);

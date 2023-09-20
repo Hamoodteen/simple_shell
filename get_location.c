@@ -103,27 +103,29 @@ char *_strcpy(char *dest, char *src)
 */
 char *inttostring(int num)
 {
-	int maxDigits = 12;
-	int i;
+	int isNegative = 0, temp, strLength, i, digitCount;
 	char *str;
 
-	str = (char *)malloc(maxDigits * sizeof(char));
+	if (num < 0)
+	{
+		isNegative = 1;
+		num = -num; }
+	temp = num;
+	digitCount = 1;
+	while (temp >= 10)
+	{
+		temp /= 10;
+		digitCount++; }
+	strLength = digitCount + isNegative + 1;
+	str = (char *)malloc(strLength);
 	if (str == NULL)
 		return (NULL);
-	if (num == 0)
+	str[strLength - 1] = '\0';
+	for (i = strLength - 2; i >= isNegative; i--)
 	{
-		str[0] = '0';
-		str[1] = '\0';
-		return (str); }
-	else if (num < 0)
-	{
-		str[0] = '-';
-		num = -num; }
-	i = maxDigits - 1;
-	str[i] = '\0';
-	while (num > 0 && i > 0)
-	{
-		i--;
 		str[i] = '0' + (num % 10);
 		num /= 10; }
-	return (&str[i]); }
+	if (isNegative)
+		str[0] = '-';
+	return (str);
+}

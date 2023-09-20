@@ -39,7 +39,7 @@ void tok(char *s, char *args[]);
 int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt);
 int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt);
 char *inttostring(int num);
-int filefd(char *argv[], int fd, char *env[]);
+int filefd(char *argv[], int fd, char *env[], int cnt);
 void removeComment(char *input);
 void removeNewline(char *str);
 char **splitCommands(char *command, const char *delim);

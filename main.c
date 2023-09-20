@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *env[])
 	(void)argc;
 	if (argv[1] != NULL)
 	{
-		a = filefd(argv, fd, env);
+		a = filefd(argv, fd, env, cnt);
 		return (a); }
 	while (1)
 	{
