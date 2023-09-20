@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	char *s, **commands = NULL;
 	size_t len;
-	int i, whitespace, cnt = 0, a, fd = 0, st = 0;
+	int i, whitespace, cnt = 0, a, fd = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -36,7 +36,7 @@ int main(int argc, char *argv[], char *env[])
 			free(s);
 			continue; }
 		commands = splitCommands(s, ";");
-		st = initializer(commands, argv, env, cnt);
+		initializer(commands, argv, env, cnt);
 		free(commands);
 		free(s);
 		return (0);
