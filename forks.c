@@ -70,10 +70,11 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
  * @cnt: count
  * @argv0: argv0
 */
-void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
+void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt,
+int *ptr_to_exit_status)
 {
 	pid_t child;
-	int status;
+	int status, exit_status;
 	char *command_path = _which(args[0]);
 
 	if (command_path == NULL)
@@ -84,7 +85,7 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
-		return; }
+		exit(127); }
 	child = fork();
 	if (child == -1)
 	{
@@ -104,7 +105,15 @@ void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 			exit(EXIT_FAILURE); }
 	}
 	else
-		waitpid(child, &status, 0); }
+	{
+		waitpid(child, &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+			*ptr_to_exit_status = exit_status;
+			printf("Child process exited with status: %d\n", *ptr_to_exit_status); }
+	}
+}
 
 /**
  * filefd - f

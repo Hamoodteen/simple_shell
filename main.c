@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	char *args[50], *s, **commands = NULL, **oneCommand = NULL;
 	size_t len;
-	int i, j, whitespace, cnt = 0, a, fd = 0;
+	int i, j, whitespace, cnt = 0, a, fd = 0, exit_status = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
-			exit(EXIT_SUCCESS); }
+			exit(EXIT_FAILURE); }
 		removeNewline(s);
 		removeComment(s);
 		cnt++;
@@ -52,7 +52,11 @@ int main(int argc, char *argv[], char *env[])
 			{
 				tok(oneCommand[j], args);
 				if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
-					fork_process(oneCommand[j], args, env, argv[0], cnt); }
+				{
+					fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
+					printf("Child process exited with status: %d\n", exit_status); 
+				}
+			}
 			free(oneCommand); }
 		free(commands);
 		free(s);
