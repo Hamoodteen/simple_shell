@@ -90,7 +90,7 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	if (child == -1)
 	{
 		perror(s);
-		return(1); }
+		return (1); }
 	else if (child == 0)
 	{
 		if (execve(command_path, args, env) == -1)
@@ -102,7 +102,7 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 			write(STDERR_FILENO, args[0], _strlen(args[0]));
 			perror(args[0]);
 			free(command_path);
-			return(1); }
+			return (1); }
 	}
 	else
 	{
@@ -110,11 +110,9 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 		if (WIFEXITED(status))
 		{
 			exit_status = WEXITSTATUS(status);
-			return (exit_status);
-		}
+			return (exit_status); }
 	}
-	return (exit_status);
-}
+	return (exit_status); }
 
 /**
  * filefd - f

@@ -33,7 +33,7 @@ int check_substring(char *str, char *substring)
 int initializer(char **commands, char *argv[], char *env[], int cnt)
 {
 	char **oneCommand = NULL, *args[50];
-	int i, j, exit_status = 0;
+	int i, j, ex_st = 0;
 
 	for (i = 0; commands[i] != NULL; i++)
 	{
@@ -50,10 +50,11 @@ int initializer(char **commands, char *argv[], char *env[], int cnt)
 		for (j = 0; oneCommand[j] != NULL; j++)
 		{
 			tok(oneCommand[j], args);
-			if ((exit_status = myexitenvcd(oneCommand[j], args, env, argv[0], cnt)) != -1)
+			ex_st = myexitenvcd(oneCommand[j], args, env, argv[0], cnt);
+			if (ex_st != -1)
 			{
-				exit_status = fork_process(oneCommand[j], args, env, argv[0], cnt);
-				return (exit_status); }
+				ex_st = fork_process(oneCommand[j], args, env, argv[0], cnt);
+				return (ex_st); }
 		}
 		free(oneCommand); }
 	return (0);
