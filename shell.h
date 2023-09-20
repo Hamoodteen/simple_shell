@@ -14,10 +14,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#define BUFFER_SIZE 1024
 
 extern char **environ;
 
-int _putchar(char c);
 int _puts(char *c);
 int print_number(long int n);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);

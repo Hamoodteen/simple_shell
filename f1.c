@@ -1,16 +1,6 @@
 #include "shell.h"
 
 /**
- * _putchar - prints a string
- * @c: pointer to string to print
- * Return: string
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
  * _puts - prints a string
  * @c: pointer to string to print
  * Return: string
@@ -63,45 +53,84 @@ int print_number(long int n)
 */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
-	char *newline, *line = NULL;
-	ssize_t bufsize = 128, nchars = 0;
-	int c;
+	static char buffer[BUFFER_SIZE];
+	static size_t buffer_pos, buffer_size;
+	size_t line_length, bytes_read, i, wg;
+	char *line_end;
 
-	if ((lineptr == NULL) || (n == NULL) || (stream == NULL))
+	buffer_pos = buffer_size = 0;
+	if (lineptr == NULL || n == NULL || stream == NULL)
 		return (-1);
-	if ((*lineptr == NULL) || (*n == 0))
+	if (buffer_pos >= buffer_size)
 	{
-		line = (char *)malloc(bufsize);
-		if (line == NULL)
+		bytes_read = read(fileno(stream), buffer, BUFFER_SIZE);
+		if (bytes_read <= 0)
 			return (-1);
-		*n = bufsize; }
-	else
+		buffer_size = (size_t)bytes_read;
+		buffer_pos = 0; }
+	line_length = 0;
+	line_end = NULL;
+	while (buffer_pos + line_length < buffer_size)
 	{
-		bufsize = *n;
-		line = *lineptr; }
+		if (buffer[buffer_pos + line_length] == '\n')
+		{
+			line_end = &buffer[buffer_pos + line_length];
+			break; }
+		line_length++; }
+	if (line_end != NULL)
+	{
+		line_length++;
+		if (*lineptr == NULL || *n < line_length)
+		{
+			*lineptr = (char *)realloc(*lineptr, line_length);
+			if (*lineptr == NULL)
+				return (-1);
+			*n = line_length; }
+		for (i = 0; i < line_length; i++)
+			(*lineptr)[i] = buffer[buffer_pos + i];
+		buffer_pos += line_length;
+		return ((ssize_t)line_length); }
 	while (1)
 	{
-		c = _fgetc(stream);
-		if ((c == EOF) || (c == '\n'))
-		{
-			line[nchars] = '\0';
-			break; }
-		if (nchars >= (bufsize - 1))
-		{
-			bufsize *= 2;
-			newline = (char *)_realloc(line, sizeof(line), bufsize);
-			if (newline == NULL)
-			{
-				free(line);
-				return (-1); }
-			line = newline;
-		}
-		line[nchars++] = (char)c; }
-	*lineptr = line;
-	*n = bufsize;
-	if ((nchars == 0) && (c == EOF))
+		wg = whileget(lineptr, n, bytes_read, line_length,
+		buffer_pos, buffer_size, stream, buffer, line_end, i);
+		return (wg); }
+}
+
+/**
+ * whileget - f
+ * Return: int
+*/
+ssize_t whileget(char **lineptr, size_t *n, size_t bytes_read,
+size_t line_length, size_t buffer_pos, size_t buffer_size,
+FILE *stream, char buffer[], char *line_end, int i)
+{
+	bytes_read = read(fileno(stream), buffer, BUFFER_SIZE);
+	if (bytes_read <= 0)
 		return (-1);
-	return (nchars); }
+	buffer_size = (size_t)bytes_read;
+	buffer_pos = 0;
+	while (buffer_pos + line_length < buffer_size)
+	{
+		if (buffer[buffer_pos + line_length] == '\n')
+		{
+			line_end = &buffer[buffer_pos + line_length];
+			break; }
+		line_length++; }
+	if (line_end != NULL)
+	{
+		line_length++;
+		if (*lineptr == NULL || *n < line_length)
+		{
+			*lineptr = (char *)realloc(*lineptr, line_length);
+			if (*lineptr == NULL)
+				return (-1);
+			*n = line_length; }
+		for (i = 0; i < line_length; i++)
+			(*lineptr)[i] = buffer[buffer_pos + i];
+		buffer_pos += line_length;
+		return ((ssize_t)line_length); }
+}
 
 /**
  * *_realloc - f
