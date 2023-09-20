@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * initializer - call fork_process func and myexitenvcd func after
+ * handling && || seperator
+ * @commands: commads seperated by semicolon;
+ * @argv: arg vector from main func
+ * 
+*/
 void initializer(char **commands, char *argv[], char *env[], int cnt)
 {
 	char **oneCommand = NULL, *args[50];
