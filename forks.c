@@ -40,7 +40,10 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 	if (_strcmp(s, "exit") == 0)
 	{
 		ex = _myexit(args, argv0, cnt);
-		exit(ex); }
+		if (ex != 2)
+			exit(ex);
+		else
+			return (0); }
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		ee = myenv(args, env, e);
