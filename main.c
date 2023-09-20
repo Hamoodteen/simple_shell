@@ -11,7 +11,7 @@ int main(int argc, char *argv[], char *env[])
 {
 	char *s, **commands = NULL;
 	size_t len;
-	int i, whitespace, cnt = 0, a, fd = 0;
+	int i, whitespace, cnt = 0, a, fd = 0, st = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
-			return(-1); }
+			return(st); }
 		removeNewline(s);
 		removeComment(s);
 		cnt++;
@@ -36,9 +36,9 @@ int main(int argc, char *argv[], char *env[])
 			free(s);
 			continue; }
 		commands = splitCommands(s, ";");
-		initializer(commands, argv, env, cnt);
+		st = initializer(commands, argv, env, cnt);
 		free(commands);
 		free(s);
-		return (0);
+		return (st);
 	}
 	return (0); }
