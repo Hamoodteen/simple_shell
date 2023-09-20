@@ -68,6 +68,8 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
  * @args: like {'/bin/ls', '-la'}
  * @env: env
  * @cnt: count
+ * @ptr_to_exit_status: pointer to the last exit status value to
+ * bring it to the main function
  * @argv0: argv0
 */
 void fork_process(char *s, char *args[], char *env[], char *argv0, int cnt,

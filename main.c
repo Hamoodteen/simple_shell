@@ -54,7 +54,7 @@ int main(int argc, char *argv[], char *env[])
 				if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
 				{
 					fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
-					printf("Child process exited with status: %d\n", exit_status); 
+					printf("Child process exited with status: %d\n", exit_status);
 				}
 			}
 			free(oneCommand); }
