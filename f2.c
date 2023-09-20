@@ -80,46 +80,22 @@ char **splitCommands(char *command, const char *delim)
 }
 
 /**
- * _cd - f
- * @newdir: char
- * @argv0: argv0
- * @cnt: int
- * Return: char
+ * check_substring - check if substring exists in string
+ * @str: the string
+ * @substring: the substring
+ * Return: 1 if the substring exists in string
+ * or 0 if the substring doesn't exist in string
 */
-char *_cd(char **newdir, char *argv0, int cnt)
+int check_substring(char *str, char *substring)
 {
-	char *homedir = _getenv("HOME");
-	char *oldpath;
+	int i;
 
-	if (newdir[1] == NULL)
+	for (i = 0; i < (int)_strlen(str) - (int)_strlen(substring) + 1; i++)
 	{
-		chdir(homedir);
-		_setenv("PWD", homedir, 1);
-		return (homedir); }
-	if (_strcmp(newdir[1], "-") == 0)
-	{
-		oldpath = _getenv("PWD");
-		chdir(oldpath);
-		_setenv("PWD", oldpath, 1);
-		return (oldpath);
-	}
-	else
-	{
-		if (chdir(newdir[1]) == 0)
+		if (_strncmp(str + i, substring, _strlen(substring)) == 0)
 		{
-			_setenv("PWD", newdir[1], 1);
-			return (newdir[1]);
-		}
-		else
-		{
-			oldpath = _getenv("PWD");
-			write(STDERR_FILENO, argv0, _strlen(argv0));
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
-			write(STDERR_FILENO, ": cd: can't cd to ", 18);
-			write(STDERR_FILENO, newdir[1], _strlen(newdir[1]));
-			write(STDERR_FILENO, "\n", 1);
-			return (oldpath);
+		return (1);
 		}
 	}
+	return (0);
 }

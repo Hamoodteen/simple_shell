@@ -113,3 +113,32 @@ int _unsetenv(char *name)
 	*next = NULL;
 	return (0);
 }
+
+/**
+ * _myexit - f
+ * @args: char
+ * @argv0: char
+ * @cnt: int
+ * Return: int
+*/
+int _myexit(char **args, char *argv0, int cnt)
+{
+	int ato = 0;
+
+	if (args[1] != NULL)
+	{
+		ato = _atoi(args[1]);
+		if ((*args[1] < '0') || (*args[1] > '9'))
+		{
+			write(STDERR_FILENO, argv0, _strlen(argv0));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, ": exit: Illegal number: ", 24);
+			write(STDERR_FILENO, args[1], _strlen(args[1]));
+			write(STDERR_FILENO, "\n", 1);
+			return (2); }
+		else if ((*args[1] > '0') || (*args[1] < '9'))
+			return (ato);
+	}
+	return (0);
+}

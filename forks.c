@@ -1,29 +1,6 @@
 #include "shell.h"
 
 /**
- * tok - tokanization for the args and convert s to s[0] only like
- * s = "/bin/ls -la" to s = "/bin/ls"
- * @s: the user input like "/bin/ls -la"
- * @args: return like {'/bin/ls', '-la'}
-*/
-void tok(char *s, char *args[])
-{
-	int a, i = 0;
-	char *tok;
-
-	for (a = 0; a < 50; a++)
-		args[a] = NULL;
-	tok = _strtok(s, " ");
-	while (tok != NULL)
-	{
-		args[i] = tok;
-		tok = _strtok(NULL, " ");
-		i++;
-	}
-	args[i] = NULL;
-}
-
-/**
  * myexitenvcd - command handle
  * @s: the user input
  * @args: like {'/bin/ls', '-la'}
@@ -124,6 +101,51 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	return (exit_status); }
 
 /**
+ * _cd - f
+ * @newdir: char
+ * @argv0: argv0
+ * @cnt: int
+ * Return: char
+*/
+char *_cd(char **newdir, char *argv0, int cnt)
+{
+	char *homedir = _getenv("HOME");
+	char *oldpath;
+
+	if (newdir[1] == NULL)
+	{
+		chdir(homedir);
+		_setenv("PWD", homedir, 1);
+		return (homedir); }
+	if (_strcmp(newdir[1], "-") == 0)
+	{
+		oldpath = _getenv("PWD");
+		chdir(oldpath);
+		_setenv("PWD", oldpath, 1);
+		return (oldpath);
+	}
+	else
+	{
+		if (chdir(newdir[1]) == 0)
+		{
+			_setenv("PWD", newdir[1], 1);
+			return (newdir[1]);
+		}
+		else
+		{
+			oldpath = _getenv("PWD");
+			write(STDERR_FILENO, argv0, _strlen(argv0));
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
+			write(STDERR_FILENO, ": cd: can't cd to ", 18);
+			write(STDERR_FILENO, newdir[1], _strlen(newdir[1]));
+			write(STDERR_FILENO, "\n", 1);
+			return (oldpath);
+		}
+	}
+}
+
+/**
  * filefd - f
  * @argv: argv
  * @fd: file
@@ -148,32 +170,19 @@ int filefd(char *argv[], int fd, char *env[])
 }
 
 /**
- * _myexit - f
- * @args: char
- * @argv0: char
- * @cnt: int
+ * _fgetc - f
+ * @stream: file
  * Return: int
 */
-int _myexit(char **args, char *argv0, int cnt)
+int _fgetc(FILE *stream)
 {
-	int ato = 0;
+	char c;
+	int nread;
 
-	if (args[1] != NULL)
-	{
-		ato = _atoi(args[1]);
-		if ((*args[1] < '0') || (*args[1] > '9'))
-		{
-			write(STDERR_FILENO, argv0, _strlen(argv0));
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, inttostring(cnt), (sizeof(cnt) / 4));
-			write(STDERR_FILENO, ": exit: Illegal number: ", 24);
-			write(STDERR_FILENO, args[1], _strlen(args[1]));
-			write(STDERR_FILENO, "\n", 1);
-			return (2); }
-		else if ((*args[1] > '0') || (*args[1] < '9'))
-			return (ato);
-	}
-	return (0);
+	nread = read(fileno(stream), &c, 1);
+	if (nread == 0)
+		return (EOF);
+	return (c);
 }
 
 /**

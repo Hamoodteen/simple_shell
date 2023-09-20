@@ -42,19 +42,26 @@ char *_which(char *command)
 	return (NULL); }
 
 /**
- * _fgetc - f
- * @stream: file
- * Return: int
+ * tok - tokanization for the args and convert s to s[0] only like
+ * s = "/bin/ls -la" to s = "/bin/ls"
+ * @s: the user input like "/bin/ls -la"
+ * @args: return like {'/bin/ls', '-la'}
 */
-int _fgetc(FILE *stream)
+void tok(char *s, char *args[])
 {
-	char c;
-	int nread;
+	int a, i = 0;
+	char *tok;
 
-	nread = read(fileno(stream), &c, 1);
-	if (nread == 0)
-		return (EOF);
-	return (c);
+	for (a = 0; a < 50; a++)
+		args[a] = NULL;
+	tok = _strtok(s, " ");
+	while (tok != NULL)
+	{
+		args[i] = tok;
+		tok = _strtok(NULL, " ");
+		i++;
+	}
+	args[i] = NULL;
 }
 
 /**
