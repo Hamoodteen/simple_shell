@@ -37,11 +37,11 @@ void initializer(char **commands, char *argv[], char *env[], int cnt)
 }
 
 /**
- * main - func
- * @argc: int
- * @argv: args
- * @env: env
- * Return: 0 or 1
+ * main - the main func for simple shell(sh)
+ * @argc: the number of arg vector
+ * @argv: arg vector
+ * @env: environment
+ * Return: exit status 0 or 1
 */
 int main(int argc, char *argv[], char *env[])
 {
