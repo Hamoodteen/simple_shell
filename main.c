@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 		if (_getline(&s, &len, stdin) == -1)
 		{
 			free(s);
-			exit(EXIT_SUCCESS); }
+			exit(2); }
 		removeNewline(s);
 		removeComment(s);
 		cnt++;
