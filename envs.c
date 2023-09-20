@@ -78,9 +78,7 @@ int _setenv(char *name, char *value, int overwrite)
 	new_env = (char **)_realloc(environ, sizeof(environ),
 	((env - environ + 2) * sizeof(char *)));
 	if (new_env == NULL)
-	{
-		free(new_var);
-		return (-1); }
+		return (-1);
 	environ = new_env;
 	environ[env - environ] = new_var;
 	environ[env - environ + 1] = NULL;
@@ -104,10 +102,7 @@ int _unsetenv(char *name)
 	{
 		if ((_strncmp(*env, name, _strlen(name)) == 0) &&
 		((*env)[_strlen(name)] == '='))
-		{
-			free(*env);
 			*env = NULL;
-		}
 		else
 		{
 			*next = *env;
