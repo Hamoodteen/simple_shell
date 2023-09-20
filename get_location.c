@@ -37,6 +37,7 @@ char *_which(char *command)
 				free(file_path);
 				path_token = _strtok(NULL, ":"); }
 		}
+		free(path_copy);
 		return (NULL); }
 	return (NULL); }
 
