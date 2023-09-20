@@ -9,7 +9,7 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	char *s, **commands = NULL;
+	char *s, *args[50], **commands = NULL;
 	size_t len;
 	int i, whitespace, cnt = 0, a, fd = 0, st = 0;
 
@@ -36,7 +36,12 @@ int main(int argc, char *argv[], char *env[])
 			free(s);
 			continue; }
 		commands = splitCommands(s, ";");
-		st = initializer(commands, argv, env, cnt);
+		for (i = 0; commands[i] != NULL; i++)
+		{
+			tok(commands[i], args);
+			if ((st = myexitenvcd(commands[i], args, env, argv[0], cnt)) != -1)
+				st = fork_process(commands[i], args, env, argv[0], cnt);
+		}
 		free(commands);
 		free(s);
 	}
