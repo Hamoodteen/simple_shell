@@ -1,9 +1,5 @@
 .code-workspace.code-workspace
 .vscode/
-sasashell/
-TEST_SUITE/
-allowed_functions
-runchecker.bash
 *.o
 a.out
 hsh
