@@ -113,7 +113,7 @@ int *ptr_to_exit_status)
 		{
 			exit_status = WEXITSTATUS(status);
 			*ptr_to_exit_status = exit_status;
-			printf("Child process exited with status: %d\n", *ptr_to_exit_status); }
+		}
 	}
 }
 

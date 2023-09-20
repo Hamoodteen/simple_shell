@@ -1,5 +1,33 @@
 #include "shell.h"
 
+void initializer(char **commands, char *argv[], char *env[], int cnt)
+{
+	char **oneCommand = NULL, *args[50];
+	int i, j, exit_status = 0;
+
+	for (i = 0; commands[i] != NULL; i++)
+	{
+		oneCommand = (char **)commands[i];
+		if (check_substring(commands[i], "&&") == 1)
+		{
+			oneCommand = splitCommands(commands[i], "&&"); }
+		else if (check_substring(commands[i], "||") == 1)
+		{
+			oneCommand = splitCommands(commands[i], "||"); }
+		else
+		{
+			oneCommand = splitCommands(commands[i], ""); }
+		for (j = 0; oneCommand[j] != NULL; j++)
+		{
+			tok(oneCommand[j], args);
+			if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
+			{
+				fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
+			}
+		}
+		free(oneCommand); }
+}
+
 /**
  * main - func
  * @argc: int
@@ -9,9 +37,9 @@
 */
 int main(int argc, char *argv[], char *env[])
 {
-	char *args[50], *s, **commands = NULL, **oneCommand = NULL;
+	char *s, **commands = NULL;
 	size_t len;
-	int i, j, whitespace, cnt = 0, a, fd = 0, exit_status = 0;
+	int i, whitespace, cnt = 0, a, fd = 0;
 
 	(void)argc;
 	if (argv[1] != NULL)
@@ -36,28 +64,7 @@ int main(int argc, char *argv[], char *env[])
 			free(s);
 			continue; }
 		commands = splitCommands(s, ";");
-		for (i = 0; commands[i] != NULL; i++)
-		{
-			oneCommand = (char **)commands[i];
-			if (check_substring(commands[i], "&&") == 1)
-			{
-				oneCommand = splitCommands(commands[i], "&&"); }
-			else if (check_substring(commands[i], "||") == 1)
-			{
-				oneCommand = splitCommands(commands[i], "||"); }
-			else
-			{
-				oneCommand = splitCommands(commands[i], ""); }
-			for (j = 0; oneCommand[j] != NULL; j++)
-			{
-				tok(oneCommand[j], args);
-				if (myexitenvcd(oneCommand[j], args, env, argv[0], cnt) != -1)
-				{
-					fork_process(oneCommand[j], args, env, argv[0], cnt, &exit_status);
-					printf("Child process exited with status: %d\n", exit_status);
-				}
-			}
-			free(oneCommand); }
+		initializer(commands, argv, env, cnt);
 		free(commands);
 		free(s);
 	}
