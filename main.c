@@ -5,7 +5,8 @@
  * handling && || seperator
  * @commands: commads seperated by semicolon;
  * @argv: arg vector from main func
- * 
+ * @env: environment from main func
+ * @cnt: counter
 */
 void initializer(char **commands, char *argv[], char *env[], int cnt)
 {
