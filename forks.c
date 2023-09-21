@@ -41,14 +41,12 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 		return (0); }
 	else if (_strcmp(s, "cd") == 0)
 	{
-		if (_strcmp(_cd(args, argv0, cnt), _getenv("HOME")) == 0)
+		if (_strcmp(_cd(args, argv0, cnt), _getenv("PWD")) != 0)
 			return (0);
-		else
-			return (2);
 		(void)mycd;
 		/* mycd = _cd(args, argv0, cnt); */
 		/* write(STDIN_FILENO, mycd, _strlen(mycd)); */
-	}
+		return (2); }
 	return (1); }
 
 /**
