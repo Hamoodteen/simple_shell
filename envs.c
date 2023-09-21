@@ -115,13 +115,13 @@ int _unsetenv(char *name)
 }
 
 /**
- * _myexit - f
+ * myexit - f
  * @args: char
  * @argv0: char
  * @cnt: int
  * Return: int
 */
-int _myexit(char **args, char *argv0, int cnt)
+int myexit(char **args, char *argv0, int cnt)
 {
 	int ato = 0;
 

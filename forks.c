@@ -16,7 +16,7 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 
 	if (_strcmp(s, "exit") == 0)
 	{
-		ex = _myexit(args, argv0, cnt);
+		ex = myexit(args, argv0, cnt);
 		if (ex != 2)
 			exit(ex);
 		else
@@ -159,6 +159,7 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 	ssize_t bytes_read;
 	int st;
 
+	cnt = 1;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
