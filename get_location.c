@@ -3,7 +3,7 @@
 /**
  * _which - f
  * @command: command
- * @return: char
+ * Return: char
 */
 char *_which(char *command)
 {
