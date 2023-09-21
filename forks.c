@@ -167,8 +167,8 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 	write(STDERR_FILENO, ": 0: cannot open ", 17);
 	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
-	write(STDERR_FILENO, ": No such file\n", 15);
-	return (2); }
+	write(STDERR_FILENO, ": No such file\n", 16);
+	return (127); }
 	bytes_read = read(fd, buffer, sizeof(buffer));
 	while (bytes_read > 0)
 	{

@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * _which - get the full path of the command
- * @command: the command
- * Return: the full path of the command
+ * _which - f
+ * @command: command
+ * Return: char
 */
 char *_which(char *command)
 {
