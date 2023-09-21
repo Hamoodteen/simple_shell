@@ -181,6 +181,7 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 					args[0] = start;
 					args[1] = NULL;
 					st = initializer(args, argv, env, cnt);
+					cnt++;
 				}
 				start = end + 1; }
 			end++; }
