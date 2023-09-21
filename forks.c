@@ -20,7 +20,7 @@ int myexitenvcd(char *s, char *args[], char *env[], char *argv0, int cnt)
 		if (ex != 2)
 			exit(ex);
 		else
-			return (2); }
+			return (127); }
 	else if ((_strcmp(s, "env") == 0) || (_strcmp(s, "printenv") == 0))
 	{
 		ee = myenv(args, env, e);
@@ -167,7 +167,7 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 	write(STDERR_FILENO, ": 0: cannot open ", 17);
 	write(STDERR_FILENO, argv[1], _strlen(argv[1]));
-	write(STDERR_FILENO, ": No such file\n", 15);
+	write(STDERR_FILENO, ": No such file\n", 16);
 	return (2); }
 	bytes_read = read(fd, buffer, sizeof(buffer));
 	while (bytes_read > 0)
