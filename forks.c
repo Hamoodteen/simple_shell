@@ -157,6 +157,7 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 {
 	char buffer[8192], *start, *end, *args[2];
 	ssize_t bytes_read;
+	int st;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -179,19 +180,11 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 				{
 					args[0] = start;
 					args[1] = NULL;
-					if (execve(start, args, env) == -1)
-					{
-						write(STDERR_FILENO, argv[1], _strlen(argv[1]));
-						write(STDERR_FILENO, ": ", 2);
-						write(STDERR_FILENO, inttostring(cnt), _strlen(inttostring(cnt)));
-						write(STDERR_FILENO, ": ", 2);
-						write(STDERR_FILENO, args[0], _strlen(args[0]));
-						write(STDERR_FILENO, ": not found\n", 12);
-						cnt++; }
+					st = initializer(args, argv, env, cnt);
 				}
 				start = end + 1; }
 			end++; }
-		return (127);
+		return (st);
 	}
 	if (close(fd) == -1)
 		return (3);
