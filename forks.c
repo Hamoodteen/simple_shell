@@ -62,7 +62,7 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 {
 	pid_t child;
 	int status, exit_status = 0;
-	char *command_path = get_location(args[0]);
+	char *command_path = _which(args[0]);
 
 	if (command_path == NULL)
 	{
