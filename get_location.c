@@ -1,10 +1,12 @@
 #include "shell.h"
 
 /**
- * *_which - get location for command like ls => /usr/bin/ls
- * @command: the command to find its path like ls
+ * _which - checks if a command exists in the PATH variable
  *
- * Return: The path of the command "/usr/bin/ls" on success or NULL on failure
+ * @command: the command to be checked
+ *
+ * Return: on success returns the command path
+ * on failure returns
 */
 char *_which(char *command)
 {
