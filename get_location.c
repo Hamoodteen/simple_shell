@@ -5,8 +5,7 @@
  *
  * @command: the command to be checked
  *
- * Return: on success returns the command path
- * on failure returns
+ * Return: on success returns the command path on failure returns NULL
 */
 char *_which(char *command)
 {
