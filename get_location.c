@@ -1,13 +1,11 @@
 #include "shell.h"
 
 /**
- * _which - checks if a command exists in the PATH variable
- *
- * @command: the command to be checked
- *
- * Return: on success returns the command path on failure returns NULL
+ * getpath - f
+ * @cmd: cmd
+ * Return: char
 */
-char *_which(char *command)
+char *getpath(char *cmd)
 {
 	char *path, *path_copy, *path_token, *file_path;
 	int command_length, directory_length;
@@ -16,10 +14,10 @@ char *_which(char *command)
 	path = _getenv("PATH");
 	if (path)
 	{
-		if (stat(command, &buffer) == 0)
-			return (command);
+		if (stat(cmd, &buffer) == 0)
+			return (cmd);
 		path_copy = _strdup(path);
-		command_length = _strlen(command);
+		command_length = _strlen(cmd);
 		path_token = _strtok(path_copy, ":");
 		while (path_token != NULL)
 		{
@@ -27,7 +25,7 @@ char *_which(char *command)
 			file_path = malloc(command_length + directory_length + 2);
 			_strcpy(file_path, path_token);
 			_strcat(file_path, "/");
-			_strcat(file_path, command);
+			_strcat(file_path, cmd);
 			_strcat(file_path, "\0");
 			if (stat(file_path, &buffer) == 0)
 			{
