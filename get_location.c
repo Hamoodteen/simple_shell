@@ -1,10 +1,6 @@
 #include "shell.h"
 
-/**
- * _which - f
- * @command: command
- * Return: char
-*/
+
 char *_which(char *command)
 {
 	char *path, *path_copy, *path_token, *file_path;
