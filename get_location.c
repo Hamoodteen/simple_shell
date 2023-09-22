@@ -4,7 +4,7 @@
  * *_which - get location for command like ls => /usr/bin/ls
  * @command: the command to find its path like ls
  *
- * Return: The path of the command "/usr/bin/ls"
+ * Return: The path of the command "/usr/bin/ls" on success or NULL on failure
 */
 char *_which(char *command)
 {
