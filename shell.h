@@ -31,7 +31,7 @@ char *_strchr(const char *s, int c);
 char *_strdup(char *str);
 char *_strtok(char *str, const char *del);
 int _atoi(char *s);
-char *_which(char *command);
+char *get_location(char *command);
 int _fgetc(FILE *stream);
 char *_memcpy(char *dest, char *src, unsigned int n);
 char *_strcpy(char *dest, char *src);

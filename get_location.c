@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * _which - checks if a command exists in the PATH variable
+ * get_location - checks if a command exists in the PATH variable
  *
  * @command: the command to be checked
  *
  * Return: on success returns the command path
  * on failure returns
 */
-char *_which(char *command)
+char *get_location(char *command)
 {
 	char *path, *path_copy, *path_token, *file_path;
 	int command_length, directory_length;
