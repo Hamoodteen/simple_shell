@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _which - get location for command like ls => /usr/bin/ls
+ * *_which - get location for command like ls => /usr/bin/ls
  * @command: the command to find its path like ls
  *
  * Return: The path of the command "/usr/bin/ls"
