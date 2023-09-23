@@ -2,12 +2,11 @@
 
 /**
  * main - function that implements simple shell features
- *
  * @argc: number of arguements
  * @argv: pointer of string
  * @env: program environment
  *
- * Return: 0 on success
+ * Return: exit status
  */
 int main(int argc, char *argv[], char *env[])
 {
