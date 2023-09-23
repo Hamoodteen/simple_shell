@@ -67,11 +67,11 @@ void tok(char *s, char *args[])
 }
 
 /**
- * *_memcpy - f
- * @dest: dest
- * @src: mem
- * @n: num
- * Return: pointer
+ * *_memcpy - act like memcpy function
+ * @dest: destination
+ * @src: source
+ * @n: number of char
+ * Return: pointer to the destination
  */
 char *_memcpy(char *dest, char *src, unsigned int n)
 {
@@ -83,10 +83,10 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 }
 
 /**
- * *_strcpy - f
- * @dest: char
- * @src: char
- * Return: Pointer
+ * *_strcpy - act like strcpy to copy string
+ * @dest: destination to take copy to
+ * @src: source to take copy form
+ * Return: Pointer to the destination
  */
 char *_strcpy(char *dest, char *src)
 {
@@ -99,9 +99,9 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * inttostring - f
- * @num: int
- * Return: int
+ * inttostring - inttostring function
+ * @num: number int
+ * Return: pointer to string
 */
 char *inttostring(int num)
 {

@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * _strlen - do something
- * @s: int or char
- * Return: some thing
+ * _strlen - get the lenght of string
+ * @s: the string
+ * Return: the get the lenght of the string
  */
 int _strlen(const char *s)
 {
@@ -16,10 +16,10 @@ int _strlen(const char *s)
 }
 
 /**
- * _strchr - f
- * @s: char
- * @c: int
- * Return: char
+ * _strchr - strchr function
+ * @s: pointer to string
+ * @c: integer
+ * Return: pointer to string
 */
 char *_strchr(const char *s, int c)
 {
@@ -38,9 +38,9 @@ char *_strchr(const char *s, int c)
 }
 
 /**
- * _strdup - f
- * @str: string
- * Return: pointer
+ * _strdup - string duplication
+ * @str: pointer to string
+ * Return: pointer pointer to string
  */
 char *_strdup(char *str)
 {
@@ -61,10 +61,10 @@ char *_strdup(char *str)
 }
 
 /**
- * _strtok - f
- * @str: str
- * @del: str
- * Return: char
+ * _strtok - string tokanization function
+ * @str: string to be token
+ * @del: the seperator to slice before and after it
+ * Return: pointer to tokenStart
 */
 char *_strtok(char *str, const char *del)
 {
@@ -89,9 +89,9 @@ char *_strtok(char *str, const char *del)
 }
 
 /**
- * _atoi - f
- * @s: str
- * Return: int
+ * _atoi - act like atoi function
+ * @s: pointer to string
+ * Return: integer
  */
 int _atoi(char *s)
 {

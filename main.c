@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * main - the main func for simple shell(sh)
+ * main - the main func for simple shell (sh)
  * @argc: the number of arg vector
  * @argv: arg vector
  * @env: environment

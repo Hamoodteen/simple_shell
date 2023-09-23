@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * _strcat - f
- * @dest: str
- * @src: str
- * Return: pointer
+ * _strcat - act like strcat function(concatinate string)
+ * @dest: destination to add to it
+ * @src: addition string(second string to concat to the first)
+ * Return: pointer to the total string
  */
 char *_strcat(char *dest, char *src)
 {
@@ -23,9 +23,9 @@ char *_strcat(char *dest, char *src)
 }
 
 /**
- * _strcmp - f
- * @s1: first
- * @s2: second
+ * _strcmp - act like strcmp function(compare two strings)
+ * @s1: first string
+ * @s2: second string
  * Return: int
  */
 int _strcmp(char *s1, char *s2)
@@ -43,10 +43,10 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strncmp - f
- * @s1: char
- * @s2: char
- * @n: int
+ * _strncmp - act like strncmp function(compare n of two strings)
+ * @s1: first string
+ * @s2: second string
+ * @n: number of char to compare
  * Return: int
 */
 int _strncmp(char *s1, char *s2, unsigned int n)
@@ -65,10 +65,10 @@ int _strncmp(char *s1, char *s2, unsigned int n)
 }
 
 /**
- * _strspn - f
- * @s1: char
- * @s2: char
- * Return: int
+ * _strspn - act like strspn function
+ * @s1: pointer to string1
+ * @s2: pointer to string2
+ * Return: size_t count
 */
 size_t _strspn(const char *s1, const char *s2)
 {
@@ -87,10 +87,10 @@ size_t _strspn(const char *s1, const char *s2)
 }
 
 /**
- * _strcspn - f
- * @s1r: char
- * @s2r: char
- * Return: int
+ * _strcspn - act like _strcspn function
+ * @s1r: pointer to string1
+ * @s2r: pointer to string2
+ * Return: size_t (s1 - s1r)
 */
 size_t _strcspn(const char *s1r, const char *s2r)
 {

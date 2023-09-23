@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * myenv - f
- * @args: char
- * @env: env
+ * myenv - print evnvironment
+ * @args: args
+ * @env: the environment form main func
  * @e: int
- * Return: int
+ * Return: 0 on success, 1 failure
 */
 int myenv(char **args, char **env, int e)
 {
@@ -21,9 +21,9 @@ int myenv(char **args, char **env, int e)
 }
 
 /**
- * _getenv - f
- * @name: char
- * Return: char
+ * _getenv - get environment function
+ * @name: name string
+ * Return: NULL or string
 */
 char *_getenv(char *name)
 {
@@ -44,11 +44,11 @@ char *_getenv(char *name)
 }
 
 /**
- * _setenv - f
- * @name: char
- * @value: char
+ * _setenv - set environment function
+ * @name: name string
+ * @value: value string
  * @overwrite: int
- * Return: int
+ * Return: 0 or -1
 */
 int _setenv(char *name, char *value, int overwrite)
 {
@@ -86,9 +86,9 @@ int _setenv(char *name, char *value, int overwrite)
 }
 
 /**
- * _unsetenv - f
- * @name: char
- * Return: int
+ * _unsetenv - unset environment function
+ * @name: name string
+ * Return: 0 or -1
 */
 int _unsetenv(char *name)
 {
@@ -115,11 +115,11 @@ int _unsetenv(char *name)
 }
 
 /**
- * myexit - f
- * @args: char
- * @argv0: char
+ * myexit - exit function to exit the shell
+ * @args: args
+ * @argv0: arg vector [0]
  * @cnt: int
- * Return: int
+ * Return: exit status or 0 if no exit status
 */
 int myexit(char **args, char *argv0, int cnt)
 {

@@ -37,11 +37,11 @@ void removeNewline(char *s)
 }
 
 /**
- * space - f
- * @s: char
- * @whitespace: int
+ * space - space function
+ * @s: user 's input string
+ * @whitespace: whitespace
  * @i: int
- * Return: int
+ * Return: whitespace
 */
 int space(char *s, int whitespace, int i)
 {

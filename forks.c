@@ -102,11 +102,11 @@ int fork_process(char *s, char *args[], char *env[], char *argv0, int cnt)
 	return (exit_status); }
 
 /**
- * _cd - f
- * @newdir: char
- * @argv0: argv0
+ * _cd - act like linux cd
+ * @newdir: pointer to pointer
+ * @argv0: arg vector [0]
  * @cnt: int
- * Return: char
+ * Return: pointer to string
 */
 char *_cd(char **newdir, char *argv0, int cnt)
 {
@@ -147,12 +147,12 @@ char *_cd(char **newdir, char *argv0, int cnt)
 }
 
 /**
- * filefd - f
- * @argv: argv
- * @fd: file
- * @env: env
- * @cnt: count
- * Return: int
+ * filefd - filefd function
+ * @argv: arg vector
+ * @fd: file descriptor
+ * @env: the environment
+ * @cnt: counter int
+ * Return: exit status
 */
 int filefd(char *argv[], int fd, char *env[], int cnt)
 {
@@ -195,8 +195,8 @@ int filefd(char *argv[], int fd, char *env[], int cnt)
 }
 
 /**
- * _fgetc - f
- * @stream: file
+ * _fgetc - act like fgetc function
+ * @stream: the stream
  * Return: int
 */
 int _fgetc(FILE *stream)

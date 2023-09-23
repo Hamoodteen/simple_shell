@@ -3,7 +3,7 @@
 /**
  * _puts - prints a string
  * @c: pointer to string to print
- * Return: string
+ * Return: int from write return
  */
 int _puts(char *c)
 {
@@ -11,9 +11,9 @@ int _puts(char *c)
 }
 
 /**
- * print_number - f
- * @n: int
- * Return: int
+ * print_number - print number
+ * @n: number to print
+ * Return: the number of digits of the number
 */
 int print_number(long int n)
 {
@@ -45,11 +45,12 @@ int print_number(long int n)
 }
 
 /**
- * _getline - f
- * @lineptr: char
- * @n: int
- * @stream: file
- * Return: int
+ * _getline - act like c getline function
+ * @lineptr: pointer to the user 's input
+ * @n: size_t struct
+ * @stream: getline reads  an  entire  line from  stream
+ * Return: return -1 on failure to read a line the or
+ * number of characters read
 */
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 {
@@ -94,11 +95,11 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	return (nchars); }
 
 /**
- * *_realloc - f
- * @ptr: pointer
- * @old_size: int
- * @new_size: int
- * Return: pointer
+ * *_realloc - act like c realloc function
+ * @ptr: pointer to the start of the memory
+ * @old_size: old size of the memory
+ * @new_size: new size of the memory
+ * Return: pointer to the start of the memory
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
