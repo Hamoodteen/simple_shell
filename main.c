@@ -1,12 +1,14 @@
 #include "shell.h"
 
 /**
- * main - the main func for simple shell (sh)
- * @argc: the number of arg vector
- * @argv: arg vector
- * @env: environment
- * Return: exit status
-*/
+ * main - function that implements simple shell features
+ *
+ * @argc: number of arguements
+ * @argv: pointer of string
+ * @env: program environment
+ *
+ * Return: 0 on success
+ */
 int main(int argc, char *argv[], char *env[])
 {
 	char *s, **commands = NULL;
