@@ -3,7 +3,7 @@
 /**
  * main - function that implements simple shell features
  * @argc: number of arguements
- * @argv: pointer of string
+ * @argv: argument vector
  * @env: program environment
  *
  * Return: exit status
